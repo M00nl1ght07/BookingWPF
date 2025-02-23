@@ -48,11 +48,11 @@ namespace BookingWPF
 
                         if (currentUser.IsAdmin)
                         {
-                            NavigationService.Navigate(new AdminPanelPage());
+                            NavigationService.Navigate(new AdminPanelPage(currentUser));
                         }
                         else
                         {
-                            NavigationService.Navigate(new ProfilePage());
+                            NavigationService.Navigate(new ProfilePage(currentUser));
                         }
                     }
                     else

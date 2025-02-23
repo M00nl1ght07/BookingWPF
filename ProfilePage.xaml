@@ -83,13 +83,13 @@
                             Margin="0,0,0,20"/>
 
                     <!-- Информация -->
-                    <TextBlock Text="Иван Иванов"
+                    <TextBlock x:Name="UserNameText"
                               FontSize="24"
                               Foreground="White"
                               HorizontalAlignment="Center"
                               Margin="0,0,0,5"/>
 
-                    <TextBlock Text="ivan@example.com"
+                    <TextBlock x:Name="UserEmailText"
                               FontSize="16"
                               Foreground="#E0E0E0"
                               HorizontalAlignment="Center"
@@ -133,7 +133,7 @@
                             </Grid.ColumnDefinitions>
 
                             <StackPanel Grid.Column="0">
-                                <TextBlock Text="5"
+                                <TextBlock x:Name="BookingsCountText"
                                           FontSize="32"
                                           Foreground="#00A0FF"
                                           HorizontalAlignment="Center"/>
@@ -143,7 +143,7 @@
                             </StackPanel>
 
                             <StackPanel Grid.Column="1">
-                                <TextBlock Text="1500"
+                                <TextBlock x:Name="BonusPointsText"
                                           FontSize="32"
                                           Foreground="#00A0FF"
                                           HorizontalAlignment="Center"/>

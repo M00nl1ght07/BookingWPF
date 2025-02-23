@@ -7,15 +7,15 @@
       "RelativeMoniker": "D:0:0:{136BD319-7506-44B2-AA01-64FBF3C78193}|BookingWPF.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{136BD319-7506-44B2-AA01-64FBF3C78193}|BookingWPF.csproj|c:\\users\\igris\\source\\repos\\bookingwpf\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{136BD319-7506-44B2-AA01-64FBF3C78193}|BookingWPF.csproj|C:\\Users\\igris\\source\\repos\\BookingWPF\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{136BD319-7506-44B2-AA01-64FBF3C78193}|BookingWPF.csproj|solutionrelative:mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{136BD319-7506-44B2-AA01-64FBF3C78193}|BookingWPF.csproj|c:\\users\\igris\\source\\repos\\bookingwpf\\registerpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{136BD319-7506-44B2-AA01-64FBF3C78193}|BookingWPF.csproj|C:\\Users\\igris\\source\\repos\\BookingWPF\\registerpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{136BD319-7506-44B2-AA01-64FBF3C78193}|BookingWPF.csproj|solutionrelative:registerpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{136BD319-7506-44B2-AA01-64FBF3C78193}|BookingWPF.csproj|c:\\users\\igris\\source\\repos\\bookingwpf\\registerpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{136BD319-7506-44B2-AA01-64FBF3C78193}|BookingWPF.csproj|C:\\Users\\igris\\source\\repos\\BookingWPF\\registerpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{136BD319-7506-44B2-AA01-64FBF3C78193}|BookingWPF.csproj|solutionrelative:registerpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     }
   ],
@@ -37,8 +37,7 @@
               "ToolTip": "C:\\Users\\igris\\source\\repos\\BookingWPF\\RegisterPage.xaml",
               "RelativeToolTip": "RegisterPage.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-02-23T17:34:07.319Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-23T17:34:07.319Z"
             },
             {
               "$type": "Document",
@@ -50,8 +49,7 @@
               "RelativeToolTip": "RegisterPage.xaml.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAE4AAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-23T17:33:56.239Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-23T17:33:56.239Z"
             },
             {
               "$type": "Document",
@@ -63,8 +61,7 @@
               "RelativeToolTip": "MainWindow.xaml.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABsAAAAvAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-23T17:29:01.486Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-23T17:29:01.486Z"
             },
             {
               "$type": "Document",

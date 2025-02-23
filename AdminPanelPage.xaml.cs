@@ -95,7 +95,10 @@ namespace BookingWPF
 
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new HomePage());
+            var mainWindow = (MainWindow)Application.Current.MainWindow;
+            mainWindow.Logout();
+            MessageBox.Show("Вы успешно вышли из системы", "Выход", 
+                MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void AddHotel_Click(object sender, RoutedEventArgs e)
@@ -159,6 +162,49 @@ namespace BookingWPF
             {
                 MessageBox.Show("Выберите отель для добавления номера", "Информация", 
                     MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        private void CancelBooking_Click(object sender, RoutedEventArgs e)
+        {
+            // Получаем выбранное бронирование
+            var row = (DataRowView)((Button)sender).DataContext;
+            int bookingId = Convert.ToInt32(row["BookingID"]);
+            string status = row["Status"].ToString();
+
+            // Проверяем, что бронирование активно
+            if (status != "Активно")
+            {
+                MessageBox.Show("Можно отменить только активные бронирования", 
+                    "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            // Запрашиваем подтверждение
+            if (MessageBox.Show("Вы уверены, что хотите отменить это бронирование?",
+                "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    SqlParameter[] parameters = {
+                        new SqlParameter("@BookingID", bookingId)
+                    };
+
+                    DatabaseConnection.ExecuteNonQuery(
+                        "UPDATE Bookings SET Status = 'Отменено' WHERE BookingID = @BookingID",
+                        parameters);
+
+                    // Обновляем таблицу
+                    LoadBookings();
+
+                    MessageBox.Show("Бронирование успешно отменено", 
+                        "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка при отмене бронирования: {ex.Message}",
+                        "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
 

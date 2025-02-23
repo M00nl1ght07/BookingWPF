@@ -64,5 +64,11 @@ namespace BookingWPF
                 MainFrame.Navigate(new ProfilePage(CurrentUser));
             }
         }
+
+        public void Logout()
+        {
+            CurrentUser = null;
+            MainFrame.Navigate(new HomePage());
+        }
     }
 }

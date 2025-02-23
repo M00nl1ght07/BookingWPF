@@ -78,7 +78,10 @@ namespace BookingWPF
 
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new HomePage());
+            var mainWindow = (MainWindow)Application.Current.MainWindow;
+            mainWindow.Logout();
+            MessageBox.Show("Вы успешно вышли из системы", "Выход", 
+                MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }

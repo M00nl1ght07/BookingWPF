@@ -7,6 +7,7 @@ using System.Windows.Media.Imaging;
 using System.IO;
 using System.Windows.Controls.Primitives;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BookingWPF
 {
@@ -19,30 +20,13 @@ namespace BookingWPF
         private decimal? minPrice;
         private decimal? maxPrice;
         private List<int> selectedRatings = new List<int>();
-        private User _currentUser;
+        private HotelSearchParameters searchParams;
 
-        public HotelsPage()
+        public HotelsPage(HotelSearchParameters searchParams = null)
         {
             InitializeComponent();
+            this.searchParams = searchParams;
             hotelsPanel = (WrapPanel)((ScrollViewer)((Grid)Content).Children[1]).Content;
-            LoadHotels();
-        }
-
-        private void UpdateFilters()
-        {
-            // Обновляем значения фильтров цены
-            decimal parsedMin;
-            decimal parsedMax;
-            minPrice = decimal.TryParse(MinPriceTextBox.Text, out parsedMin) ? (decimal?)parsedMin : null;
-            maxPrice = decimal.TryParse(MaxPriceTextBox.Text, out parsedMax) ? (decimal?)parsedMax : null;
-
-            // Обновляем выбранные рейтинги
-            selectedRatings.Clear();
-            if (Rating5CheckBox.IsChecked == true) selectedRatings.Add(5);
-            if (Rating4CheckBox.IsChecked == true) selectedRatings.Add(4);
-            if (Rating3CheckBox.IsChecked == true) selectedRatings.Add(3);
-            if (Rating2CheckBox.IsChecked == true) selectedRatings.Add(2);
-
             LoadHotels();
         }
 
@@ -57,6 +41,14 @@ namespace BookingWPF
 
                 var parameters = new List<SqlParameter>();
 
+                // Фильтр по городу из параметров поиска с главной страницы
+                if (searchParams?.City != null && searchParams.City != "Выберите город")
+                {
+                    query += " AND h.City = @City";
+                    parameters.Add(new SqlParameter("@City", searchParams.City));
+                }
+
+                // Фильтры по цене
                 if (minPrice.HasValue)
                 {
                     query += " AND h.BasePrice >= @MinPrice";
@@ -69,6 +61,7 @@ namespace BookingWPF
                     parameters.Add(new SqlParameter("@MaxPrice", maxPrice.Value));
                 }
 
+                // Фильтр по рейтингу
                 if (selectedRatings.Count > 0)
                 {
                     query += " AND h.Rating IN (SELECT value FROM STRING_SPLIT(@Ratings, ','))";
@@ -177,6 +170,24 @@ namespace BookingWPF
         {
             // Здесь будет переход на страницу с номерами отеля
             // NavigationService.Navigate(new HotelDetailsPage(hotelId));
+        }
+
+        private void UpdateFilters()
+        {
+            // Обновляем значения фильтров цены
+            decimal parsedMin;
+            decimal parsedMax;
+            minPrice = decimal.TryParse(MinPriceTextBox.Text, out parsedMin) ? (decimal?)parsedMin : null;
+            maxPrice = decimal.TryParse(MaxPriceTextBox.Text, out parsedMax) ? (decimal?)parsedMax : null;
+
+            // Обновляем выбранные рейтинги
+            selectedRatings.Clear();
+            if (Rating5CheckBox.IsChecked == true) selectedRatings.Add(5);
+            if (Rating4CheckBox.IsChecked == true) selectedRatings.Add(4);
+            if (Rating3CheckBox.IsChecked == true) selectedRatings.Add(3);
+            if (Rating2CheckBox.IsChecked == true) selectedRatings.Add(2);
+
+            LoadHotels();
         }
 
         private void ApplyFilters_Click(object sender, RoutedEventArgs e)

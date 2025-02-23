@@ -53,74 +53,61 @@
                        TextAlignment="Center"/>
 
             <!-- Поисковая панель -->
-            <Border Background="#2D2D2D" 
-                    CornerRadius="15" 
-                    Margin="20,0,20,40"
-                    Padding="20">
+            <Border Background="#2D2D2D"
+                    Margin="20"
+                    Padding="20"
+                    CornerRadius="10">
                 <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
 
-                    <TextBlock Text="Поиск отелей" 
-                              FontSize="24" 
-                              Foreground="White" 
-                              Margin="0,0,0,20"/>
+                    <ComboBox x:Name="CityComboBox" 
+                              Grid.Column="0" 
+                              Margin="5"
+                              Padding="10">
+                        <ComboBox.Style>
+                            <Style TargetType="ComboBox">
+                                <Setter Property="Background" Value="White"/>
+                                <Setter Property="Foreground" Value="#1E1E1E"/>
+                            </Style>
+                        </ComboBox.Style>
+                        <ComboBoxItem IsSelected="True" Foreground="#666666">Выберите город</ComboBoxItem>
+                    </ComboBox>
 
-                    <Grid Grid.Row="1" Margin="0,0,0,20">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
+                    <DatePicker x:Name="CheckInDatePicker" 
+                                Grid.Column="1" 
+                                Margin="5">
+                        <DatePicker.Style>
+                            <Style TargetType="DatePicker">
+                                <Setter Property="Background" Value="White"/>
+                                <Setter Property="Foreground" Value="#1E1E1E"/>
+                            </Style>
+                        </DatePicker.Style>
+                    </DatePicker>
 
-                        <ComboBox Grid.Column="0" 
-                                 Margin="5"
-                                 Padding="10">
-                            <ComboBox.Style>
-                                <Style TargetType="ComboBox">
-                                    <Setter Property="Background" Value="White"/>
-                                    <Setter Property="Foreground" Value="#1E1E1E"/>
-                                </Style>
-                            </ComboBox.Style>
-                            <ComboBoxItem IsSelected="True" Foreground="#666666">Выберите город</ComboBoxItem>
-                            <ComboBoxItem Foreground="#1E1E1E">Москва</ComboBoxItem>
-                            <ComboBoxItem Foreground="#1E1E1E">Санкт-Петербург</ComboBoxItem>
-                            <ComboBoxItem Foreground="#1E1E1E">Казань</ComboBoxItem>
-                            <ComboBoxItem Foreground="#1E1E1E">Сочи</ComboBoxItem>
-                            <ComboBoxItem Foreground="#1E1E1E">Екатеринбург</ComboBoxItem>
-                        </ComboBox>
+                    <DatePicker x:Name="CheckOutDatePicker" 
+                                Grid.Column="2" 
+                                Margin="5">
+                        <DatePicker.Style>
+                            <Style TargetType="DatePicker">
+                                <Setter Property="Background" Value="White"/>
+                                <Setter Property="Foreground" Value="#1E1E1E"/>
+                            </Style>
+                        </DatePicker.Style>
+                    </DatePicker>
 
-                        <DatePicker Grid.Column="1" 
-                                   Margin="5">
-                            <DatePicker.Style>
-                                <Style TargetType="DatePicker">
-                                    <Setter Property="Background" Value="White"/>
-                                    <Setter Property="Foreground" Value="#1E1E1E"/>
-                                </Style>
-                            </DatePicker.Style>
-                        </DatePicker>
-
-                        <DatePicker Grid.Column="2" 
-                                   Margin="5">
-                            <DatePicker.Style>
-                                <Style TargetType="DatePicker">
-                                    <Setter Property="Background" Value="White"/>
-                                    <Setter Property="Foreground" Value="#1E1E1E"/>
-                                </Style>
-                            </DatePicker.Style>
-                        </DatePicker>
-                    </Grid>
-
-                    <Button Grid.Row="2" 
-                            Content="Найти отели" 
+                    <Button Grid.Column="2" 
+                            Content="Найти отели"
                             Background="#007ACC"
                             Foreground="White"
                             Padding="20,10"
                             Width="200"
-                            HorizontalAlignment="Center"/>
+                            HorizontalAlignment="Center"
+                            BorderThickness="0"
+                            Click="SearchHotels_Click"/>
                 </Grid>
             </Border>
 

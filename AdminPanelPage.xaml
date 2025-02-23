@@ -199,14 +199,15 @@
                             <DataGridTextColumn Header="Выезд" Binding="{Binding CheckOutDate, StringFormat=dd.MM.yyyy}" Width="Auto"/>
                             <DataGridTextColumn Header="Сумма" Binding="{Binding TotalPrice}" Width="Auto"/>
                             <DataGridTextColumn Header="Статус" Binding="{Binding Status}" Width="Auto"/>
-                            <DataGridTemplateColumn Width="Auto">
+                            <DataGridTemplateColumn Header="Действия">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Button Content="Отменить"
                                                 Background="#DC3545"
                                                 Foreground="White"
                                                 Padding="10,5"
-                                                BorderThickness="0"/>
+                                                BorderThickness="0"
+                                                Click="CancelBooking_Click"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>

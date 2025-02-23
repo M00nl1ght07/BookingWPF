@@ -15,7 +15,12 @@ namespace BookingWPF
         public HomePage()
         {
             InitializeComponent();
+            LoadCities();
             LoadPopularHotels();
+            
+            // Устанавливаем минимальную дату как сегодня
+            CheckInDatePicker.DisplayDateStart = DateTime.Today;
+            CheckOutDatePicker.DisplayDateStart = DateTime.Today;
 
             try
             {
@@ -27,6 +32,67 @@ namespace BookingWPF
             {
                 MessageBox.Show($"Ошибка загрузки изображений: {ex.Message}");
             }
+        }
+
+        private void LoadCities()
+        {
+            try
+            {
+                using (SqlDataReader reader = DatabaseConnection.ExecuteReader(
+                    "SELECT DISTINCT City FROM Hotels ORDER BY City"))
+                {
+                    while (reader.Read())
+                    {
+                        CityComboBox.Items.Add(reader["City"].ToString());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при загрузке городов: {ex.Message}");
+            }
+        }
+
+        private void SearchHotels_Click(object sender, RoutedEventArgs e)
+        {
+            string selectedCity = CityComboBox.SelectedItem?.ToString();
+            DateTime? checkIn = CheckInDatePicker.SelectedDate;
+            DateTime? checkOut = CheckOutDatePicker.SelectedDate;
+
+            // Проверяем даты
+            if (checkIn.HasValue && checkOut.HasValue)
+            {
+                if (checkIn.Value < DateTime.Today)
+                {
+                    MessageBox.Show("Дата заезда не может быть в прошлом", 
+                        "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                if (checkIn.Value >= checkOut.Value)
+                {
+                    MessageBox.Show("Дата выезда должна быть позже даты заезда", 
+                        "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                if ((checkOut.Value - checkIn.Value).TotalDays > 30)
+                {
+                    MessageBox.Show("Максимальный срок бронирования - 30 дней", 
+                        "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+            }
+
+            // Создаем объект для передачи параметров поиска
+            var searchParams = new HotelSearchParameters
+            {
+                City = selectedCity,
+                CheckInDate = checkIn,
+                CheckOutDate = checkOut
+            };
+
+            NavigationService.Navigate(new HotelsPage(searchParams));
         }
 
         private void LoadPopularHotels()
@@ -132,5 +198,13 @@ namespace BookingWPF
         {
             NavigationService.Navigate(new HotelsPage());
         }
+    }
+
+    // Класс для передачи параметров поиска
+    public class HotelSearchParameters
+    {
+        public string City { get; set; }
+        public DateTime? CheckInDate { get; set; }
+        public DateTime? CheckOutDate { get; set; }
     }
 }

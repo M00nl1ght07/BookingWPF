@@ -19,7 +19,8 @@
                 <TextBlock Text="Имя"
                           Foreground="White"
                           Margin="0,0,0,5"/>
-                <TextBox Background="#1E1E1E"
+                <TextBox x:Name="NameTextBox"
+                         Background="#1E1E1E"
                          Foreground="White"
                          Height="40"
                          Padding="10,0"
@@ -31,7 +32,8 @@
                 <TextBlock Text="Email"
                           Foreground="White"
                           Margin="0,0,0,5"/>
-                <TextBox Background="#1E1E1E"
+                <TextBox x:Name="EmailTextBox"
+                         Background="#1E1E1E"
                          Foreground="White"
                          Height="40"
                          Padding="10,0"
@@ -43,7 +45,8 @@
                 <TextBlock Text="Пароль"
                           Foreground="White"
                           Margin="0,0,0,5"/>
-                <PasswordBox Background="#1E1E1E"
+                <PasswordBox x:Name="PasswordBox"
+                            Background="#1E1E1E"
                             Foreground="White"
                             Height="40"
                             Padding="10,0"
@@ -55,7 +58,8 @@
                 <TextBlock Text="Подтвердите пароль"
                           Foreground="White"
                           Margin="0,0,0,5"/>
-                <PasswordBox Background="#1E1E1E"
+                <PasswordBox x:Name="ConfirmPasswordBox"
+                            Background="#1E1E1E"
                             Foreground="White"
                             Height="40"
                             Padding="10,0"

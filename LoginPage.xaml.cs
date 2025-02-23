@@ -1,5 +1,8 @@
-﻿using System.Windows.Controls;
+﻿using System;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using System.Data.SqlClient;
 
 namespace BookingWPF
 {
@@ -10,15 +13,63 @@ namespace BookingWPF
             InitializeComponent();
         }
 
-        private void LoginButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            // Пока просто перенаправляем в личный кабинет
-            NavigationService.Navigate(new ProfilePage());
+            string email = EmailTextBox.Text;
+            string password = PasswordBox.Password;
+
+            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
+            {
+                MessageBox.Show("Введите email и пароль", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            try
+            {
+                SqlParameter[] parameters = {
+                    new SqlParameter("@Email", email),
+                    new SqlParameter("@Password", password)
+                };
+
+                using (SqlDataReader reader = DatabaseConnection.ExecuteReader(
+                    "SELECT * FROM Users WHERE Email = @Email AND Password = @Password", parameters))
+                {
+                    if (reader.Read())
+                    {
+                        User currentUser = new User
+                        {
+                            UserID = reader.GetInt32(reader.GetOrdinal("UserID")),
+                            Name = reader.GetString(reader.GetOrdinal("Name")),
+                            Email = reader.GetString(reader.GetOrdinal("Email")),
+                            IsAdmin = reader.GetBoolean(reader.GetOrdinal("IsAdmin")),
+                            RegistrationDate = reader.GetDateTime(reader.GetOrdinal("RegistrationDate")),
+                            BonusPoints = reader.GetInt32(reader.GetOrdinal("BonusPoints"))
+                        };
+
+                        if (currentUser.IsAdmin)
+                        {
+                            NavigationService.Navigate(new AdminPanelPage());
+                        }
+                        else
+                        {
+                            NavigationService.Navigate(new ProfilePage());
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Неверный email или пароль", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при входе: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void RegisterLink_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            NavigationService.Navigate(new AdminPanelPage()); // Временно для демонстрации
+            NavigationService.Navigate(new RegisterPage());
         }
     }
 }

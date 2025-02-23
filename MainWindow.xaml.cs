@@ -13,17 +13,13 @@ namespace BookingWPF
         {
             InitializeComponent();
 
-            // Проверка подключения к БД
-            if (DatabaseConnection.TestConnection())
+            if (!DatabaseConnection.TestConnection())
             {
-                MessageBox.Show("Подключение к базе данных успешно установлено!");
-            }
-            else
-            {
-                MessageBox.Show("Ошибка подключения к базе данных!");
+                MessageBox.Show("Ошибка подключения к базе данных", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                Close();
+                return;
             }
 
-            // Загружаем главную страницу
             MainFrame.Navigate(new HomePage());
         }
 

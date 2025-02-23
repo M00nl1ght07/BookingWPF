@@ -70,6 +70,7 @@
     <Compile Include="RoomSelectionPage.xaml.cs">
       <DependentUpon>RoomSelectionPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="User.cs" />
     <Page Include="AdminPanelPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

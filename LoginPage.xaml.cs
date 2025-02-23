@@ -46,6 +46,9 @@ namespace BookingWPF
                             BonusPoints = reader.GetInt32(reader.GetOrdinal("BonusPoints"))
                         };
 
+                        var mainWindow = (MainWindow)Application.Current.MainWindow;
+                        mainWindow.SetCurrentUser(currentUser);
+
                         if (currentUser.IsAdmin)
                         {
                             NavigationService.Navigate(new AdminPanelPage(currentUser));

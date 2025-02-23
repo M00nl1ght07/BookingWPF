@@ -39,3 +39,5 @@ C:\Users\igris\source\repos\BookingWPF\obj\Debug\AddRoomPage.baml
 C:\Users\igris\source\repos\BookingWPF\obj\Debug\AddRoomPage.g.cs
 C:\Users\igris\source\repos\BookingWPF\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\Users\igris\source\repos\BookingWPF\obj\Debug\BookingWPF_MarkupCompile.lref
+C:\Users\igris\source\repos\BookingWPF\obj\Debug\BookingPage.baml
+C:\Users\igris\source\repos\BookingWPF\obj\Debug\BookingPage.g.cs

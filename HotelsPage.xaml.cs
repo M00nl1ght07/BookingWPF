@@ -19,6 +19,7 @@ namespace BookingWPF
         private decimal? minPrice;
         private decimal? maxPrice;
         private List<int> selectedRatings = new List<int>();
+        private User _currentUser;
 
         public HotelsPage()
         {
@@ -149,7 +150,11 @@ namespace BookingWPF
                         };
 
                         int hotelId = Convert.ToInt32(reader["HotelID"]);
-                        bookButton.Click += (s, e) => NavigationService.Navigate(new RoomSelectionPage(hotelId));
+                        bookButton.Click += (s, e) => 
+                        {
+                            var mainWindow = (MainWindow)Application.Current.MainWindow;
+                            NavigationService.Navigate(new RoomSelectionPage(hotelId, mainWindow.CurrentUser));
+                        };
 
                         infoPanel.Children.Add(bookButton);
 

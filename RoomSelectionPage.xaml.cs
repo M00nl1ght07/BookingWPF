@@ -5,17 +5,20 @@ using System.Data.SqlClient;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.IO;
+using System.Collections.Generic;
 
 namespace BookingWPF
 {
     public partial class RoomSelectionPage : Page
     {
         private readonly int _hotelId;
+        private readonly User _currentUser;
 
-        public RoomSelectionPage(int hotelId)
+        public RoomSelectionPage(int hotelId, User currentUser = null)
         {
             InitializeComponent();
             _hotelId = hotelId;
+            _currentUser = currentUser;
             LoadHotelInfo();
             LoadRooms();
         }
@@ -45,12 +48,40 @@ namespace BookingWPF
         {
             try
             {
-                SqlParameter[] parameters = { new SqlParameter("@HotelID", _hotelId) };
-                using (SqlDataReader reader = DatabaseConnection.ExecuteReader(@"
+                // Сначала обновляем статусы бронирований
+                DatabaseConnection.ExecuteNonQuery("EXEC UpdateBookingStatuses");
+
+                string query = @"
                     SELECT r.RoomID, r.RoomType, r.Area, r.Capacity, 
                            r.PricePerNight, r.Description, r.PhotoPath
                     FROM Rooms r
-                    WHERE r.HotelID = @HotelID", parameters))
+                    WHERE r.HotelID = @HotelID";
+
+                // Если выбраны даты, добавляем проверку на доступность
+                if (CheckInDatePicker.SelectedDate.HasValue && CheckOutDatePicker.SelectedDate.HasValue)
+                {
+                    query = @"
+                        SELECT r.RoomID, r.RoomType, r.Area, r.Capacity, 
+                               r.PricePerNight, r.Description, r.PhotoPath
+                        FROM Rooms r
+                        WHERE r.HotelID = @HotelID
+                        AND NOT EXISTS (
+                            SELECT 1 FROM Bookings b
+                            WHERE b.RoomID = r.RoomID
+                            AND b.Status = 'Активно'
+                            AND NOT (b.CheckOutDate <= @CheckIn OR b.CheckInDate >= @CheckOut)
+                        )";
+                }
+
+                var parameters = new List<SqlParameter> { new SqlParameter("@HotelID", _hotelId) };
+
+                if (CheckInDatePicker.SelectedDate.HasValue && CheckOutDatePicker.SelectedDate.HasValue)
+                {
+                    parameters.Add(new SqlParameter("@CheckIn", CheckInDatePicker.SelectedDate.Value));
+                    parameters.Add(new SqlParameter("@CheckOut", CheckOutDatePicker.SelectedDate.Value));
+                }
+
+                using (SqlDataReader reader = DatabaseConnection.ExecuteReader(query, parameters.ToArray()))
                 {
                     RoomsStackPanel.Children.Clear();
 
@@ -198,13 +229,61 @@ namespace BookingWPF
 
         private void BookRoom_Click(int roomId)
         {
-            // Здесь будет переход на страницу бронирования
-            // NavigationService.Navigate(new BookingPage(roomId));
+            if (_currentUser == null)
+            {
+                MessageBox.Show("Для бронирования необходимо войти в систему", 
+                    "Требуется авторизация", MessageBoxButton.OK, MessageBoxImage.Information);
+                NavigationService.Navigate(new LoginPage());
+                return;
+            }
+
+            if (!CheckInDatePicker.SelectedDate.HasValue || !CheckOutDatePicker.SelectedDate.HasValue)
+            {
+                MessageBox.Show("Выберите даты заезда и выезда", 
+                    "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            NavigationService.Navigate(new BookingPage(roomId, _currentUser, 
+                CheckInDatePicker.SelectedDate.Value, 
+                CheckOutDatePicker.SelectedDate.Value));
         }
 
         private void SearchRooms_Click(object sender, RoutedEventArgs e)
         {
-            // Здесь будет реализована фильтрация по датам
+            if (!CheckInDatePicker.SelectedDate.HasValue || !CheckOutDatePicker.SelectedDate.HasValue)
+            {
+                MessageBox.Show("Выберите даты заезда и выезда", 
+                    "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            var checkIn = CheckInDatePicker.SelectedDate.Value;
+            var checkOut = CheckOutDatePicker.SelectedDate.Value;
+            var today = DateTime.Today;
+
+            if (checkIn < today)
+            {
+                MessageBox.Show("Дата заезда не может быть в прошлом", 
+                    "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (checkIn >= checkOut)
+            {
+                MessageBox.Show("Дата выезда должна быть позже даты заезда", 
+                    "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if ((checkOut - checkIn).TotalDays > 30)
+            {
+                MessageBox.Show("Максимальный срок бронирования - 30 дней", 
+                    "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            LoadRooms();
         }
     }
 }

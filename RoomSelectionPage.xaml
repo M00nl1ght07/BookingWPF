@@ -90,26 +90,37 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <DatePicker Grid.Column="0"
-                           Margin="0,0,10,0">
-                    <DatePicker.Resources>
-                        <Style TargetType="DatePickerTextBox">
-                            <Setter Property="Background" Value="White"/>
-                            <Setter Property="Foreground" Value="#1E1E1E"/>
-                        </Style>
-                    </DatePicker.Resources>
-                </DatePicker>
+                <!-- Дата заезда -->
+                <StackPanel Grid.Column="0" Margin="0,0,10,0">
+                    <TextBlock Text="Дата заезда"
+                              Foreground="White"
+                              Margin="0,0,0,5"/>
+                    <DatePicker x:Name="CheckInDatePicker"
+                               Height="40">
+                        <DatePicker.Resources>
+                            <Style TargetType="DatePickerTextBox">
+                                <Setter Property="Background" Value="White"/>
+                            </Style>
+                        </DatePicker.Resources>
+                    </DatePicker>
+                </StackPanel>
 
-                <DatePicker Grid.Column="1"
-                           Margin="10,0">
-                    <DatePicker.Resources>
-                        <Style TargetType="DatePickerTextBox">
-                            <Setter Property="Background" Value="White"/>
-                            <Setter Property="Foreground" Value="#1E1E1E"/>
-                        </Style>
-                    </DatePicker.Resources>
-                </DatePicker>
+                <!-- Дата выезда -->
+                <StackPanel Grid.Column="1" Margin="10,0">
+                    <TextBlock Text="Дата выезда"
+                              Foreground="White"
+                              Margin="0,0,0,5"/>
+                    <DatePicker x:Name="CheckOutDatePicker"
+                               Height="40">
+                        <DatePicker.Resources>
+                            <Style TargetType="DatePickerTextBox">
+                                <Setter Property="Background" Value="White"/>
+                            </Style>
+                        </DatePicker.Resources>
+                    </DatePicker>
+                </StackPanel>
 
+                <!-- Кнопка поиска -->
                 <Button Grid.Column="2"
                         Content="Найти номера"
                         Background="#007ACC"
@@ -118,6 +129,7 @@
                         Height="40"
                         BorderThickness="0"
                         Margin="10,0,0,0"
+                        VerticalAlignment="Bottom"
                         Click="SearchRooms_Click"/>
             </Grid>
         </Border>

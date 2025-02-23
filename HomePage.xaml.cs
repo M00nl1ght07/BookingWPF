@@ -105,7 +105,11 @@ namespace BookingWPF
                         };
 
                         int hotelId = Convert.ToInt32(reader["HotelID"]);
-                        detailsButton.Click += (s, e) => NavigationService.Navigate(new RoomSelectionPage(hotelId));
+                        detailsButton.Click += (s, e) => 
+                        {
+                            var mainWindow = (MainWindow)Application.Current.MainWindow;
+                            NavigationService.Navigate(new RoomSelectionPage(hotelId, mainWindow.CurrentUser));
+                        };
 
                         infoPanel.Children.Add(detailsButton);
 

@@ -9,6 +9,7 @@ namespace BookingWPF
     public partial class AdminPanelPage : Page
     {
         private User _currentAdmin;
+        private AdminPanelPage _adminPanel;
 
         public AdminPanelPage(User admin)
         {
@@ -50,10 +51,8 @@ namespace BookingWPF
             {
                 using (SqlDataReader reader = DatabaseConnection.ExecuteReader(@"
                     SELECT h.HotelID, h.Name, h.City, h.Rating, 
-                           h.IsPopular, COUNT(r.RoomID) as RoomCount 
-                    FROM Hotels h
-                    LEFT JOIN Rooms r ON h.HotelID = r.HotelID
-                    GROUP BY h.HotelID, h.Name, h.City, h.Rating, h.IsPopular"))
+                           h.BasePrice, h.IsPopular
+                    FROM Hotels h"))
                 {
                     DataTable dt = new DataTable();
                     dt.Load(reader);
@@ -97,6 +96,75 @@ namespace BookingWPF
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new HomePage());
+        }
+
+        private void AddHotel_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new AddHotelPage(this));
+        }
+
+        private void AddToPopular_Click(object sender, RoutedEventArgs e)
+        {
+            if (HotelsDataGrid.SelectedItem != null)
+            {
+                try
+                {
+                    DataRowView row = (DataRowView)HotelsDataGrid.SelectedItem;
+                    int hotelId = Convert.ToInt32(row["HotelID"]);
+                    bool isCurrentlyPopular = Convert.ToBoolean(row["IsPopular"]);
+
+                    // Меняем статус на противоположный
+                    bool newStatus = !isCurrentlyPopular;
+
+                    SqlParameter[] parameters = {
+                        new SqlParameter("@HotelID", hotelId),
+                        new SqlParameter("@IsPopular", newStatus)
+                    };
+
+                    DatabaseConnection.ExecuteNonQuery(
+                        "UPDATE Hotels SET IsPopular = @IsPopular WHERE HotelID = @HotelID", 
+                        parameters);
+
+                    LoadHotels(); // Перезагружаем список отелей
+
+                    string message = newStatus ? 
+                        "Отель добавлен в популярные" : 
+                        "Отель удален из популярных";
+                    
+                    MessageBox.Show(message, "Успех", 
+                        MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка при обновлении статуса отеля: {ex.Message}", 
+                        "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Выберите отель", "Информация", 
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        private void AddRoom_Click(object sender, RoutedEventArgs e)
+        {
+            if (HotelsDataGrid.SelectedItem != null)
+            {
+                DataRowView row = (DataRowView)HotelsDataGrid.SelectedItem;
+                int hotelId = Convert.ToInt32(row["HotelID"]);
+                NavigationService.Navigate(new AddRoomPage(hotelId));
+            }
+            else
+            {
+                MessageBox.Show("Выберите отель для добавления номера", "Информация", 
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        public void RefreshData()
+        {
+            LoadHotels();
         }
     }
 }

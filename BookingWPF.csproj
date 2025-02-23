@@ -58,12 +58,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddHotelPage.xaml.cs">
+      <DependentUpon>AddHotelPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AddRoomPage.xaml.cs">
+      <DependentUpon>AddRoomPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AdminPanelPage.xaml.cs">
       <DependentUpon>AdminPanelPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="EditProfilePage.xaml.cs">
       <DependentUpon>EditProfilePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PopularButtonTextConverter.cs" />
     <Compile Include="RegisterPage.xaml.cs">
       <DependentUpon>RegisterPage.xaml</DependentUpon>
     </Compile>
@@ -71,6 +78,14 @@
       <DependentUpon>RoomSelectionPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="User.cs" />
+    <Page Include="AddHotelPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AddRoomPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AdminPanelPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -163,6 +178,8 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Photos\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\igris\source\repos\BookingWPF\App.xaml
-10170590012
+12-1923513451
 
-171137436856
+20-1305695393
 14-625963800
-AdminPanelPage.xaml;BookingsPage.xaml;EditProfilePage.xaml;HomePage.xaml;HotelsPage.xaml;LoginPage.xaml;MainWindow.xaml;ProfilePage.xaml;RegisterPage.xaml;RoomSelectionPage.xaml;
+AddHotelPage.xaml;AddRoomPage.xaml;AdminPanelPage.xaml;BookingsPage.xaml;EditProfilePage.xaml;HomePage.xaml;HotelsPage.xaml;LoginPage.xaml;MainWindow.xaml;ProfilePage.xaml;RegisterPage.xaml;RoomSelectionPage.xaml;
 
-False
+True
 

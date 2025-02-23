@@ -1,0 +1,60 @@
+﻿<Page x:Class="BookingWPF.LoginPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="LoginPage">
+
+    <Grid>
+        <Border Background="#2D2D2D"
+                CornerRadius="15"
+                Width="400"
+                Padding="40">
+            <StackPanel>
+                <TextBlock Text="Вход в систему"
+                          FontSize="28"
+                          Foreground="White"
+                          HorizontalAlignment="Center"
+                          Margin="0,0,0,30"/>
+
+                <!-- Email -->
+                <TextBlock Text="Email"
+                          Foreground="White"
+                          Margin="0,0,0,5"/>
+                <TextBox Background="#1E1E1E"
+                         Foreground="White"
+                         Height="40"
+                         Padding="10,0"
+                         VerticalContentAlignment="Center"
+                         BorderThickness="0"
+                         Margin="0,0,0,15"/>
+
+                <!-- Пароль -->
+                <TextBlock Text="Пароль"
+                          Foreground="White"
+                          Margin="0,0,0,5"/>
+                <PasswordBox Background="#1E1E1E"
+                            Foreground="White"
+                            Height="40"
+                            Padding="10,0"
+                            VerticalContentAlignment="Center"
+                            BorderThickness="0"
+                            Margin="0,0,0,25"/>
+
+                <!-- Кнопка входа -->
+                <Button Content="Войти"
+                        Background="#007ACC"
+                        Foreground="White"
+                        Height="40"
+                        BorderThickness="0"
+                        Margin="0,0,0,15"
+                        Click="LoginButton_Click"/>
+
+                <!-- Ссылка на регистрацию -->
+                <TextBlock Text="Нет аккаунта? Зарегистрироваться"
+                          Foreground="#007ACC"
+                          HorizontalAlignment="Center"
+                          Cursor="Hand"
+                          MouseDown="RegisterLink_MouseDown"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Page>

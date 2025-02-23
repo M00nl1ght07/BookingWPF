@@ -1,17 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace BookingWPF
 {
@@ -23,6 +12,39 @@ namespace BookingWPF
         public MainWindow()
         {
             InitializeComponent();
+
+            // Проверка подключения к БД
+            if (DatabaseConnection.TestConnection())
+            {
+                MessageBox.Show("Подключение к базе данных успешно установлено!");
+            }
+            else
+            {
+                MessageBox.Show("Ошибка подключения к базе данных!");
+            }
+
+            // Загружаем главную страницу
+            MainFrame.Navigate(new HomePage());
+        }
+
+        private void MenuHome_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new HomePage());
+        }
+
+        private void MenuHotels_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new HotelsPage());
+        }
+
+        private void MenuBookings_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new BookingsPage());
+        }
+
+        private void MenuProfile_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new LoginPage());
         }
     }
 }

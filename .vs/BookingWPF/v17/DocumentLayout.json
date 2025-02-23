@@ -7,8 +7,8 @@
       "RelativeMoniker": "D:0:0:{136BD319-7506-44B2-AA01-64FBF3C78193}|BookingWPF.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{136BD319-7506-44B2-AA01-64FBF3C78193}|BookingWPF.csproj|c:\\users\\igris\\source\\repos\\bookingwpf\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{136BD319-7506-44B2-AA01-64FBF3C78193}|BookingWPF.csproj|solutionrelative:mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{136BD319-7506-44B2-AA01-64FBF3C78193}|BookingWPF.csproj|c:\\users\\igris\\source\\repos\\bookingwpf\\hotelspage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{136BD319-7506-44B2-AA01-64FBF3C78193}|BookingWPF.csproj|solutionrelative:hotelspage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,8 +18,21 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "HotelsPage.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\igris\\source\\repos\\BookingWPF\\HotelsPage.xaml.cs",
+              "RelativeDocumentMoniker": "HotelsPage.xaml.cs",
+              "ToolTip": "C:\\Users\\igris\\source\\repos\\BookingWPF\\HotelsPage.xaml.cs",
+              "RelativeToolTip": "HotelsPage.xaml.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACoAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-23T15:05:40.015Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -29,20 +42,7 @@
               "ToolTip": "C:\\Users\\igris\\source\\repos\\BookingWPF\\MainWindow.xaml",
               "RelativeToolTip": "MainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-02-23T12:07:33.243Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "MainWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\igris\\source\\repos\\BookingWPF\\MainWindow.xaml.cs",
-              "RelativeDocumentMoniker": "MainWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\igris\\source\\repos\\BookingWPF\\MainWindow.xaml.cs",
-              "RelativeToolTip": "MainWindow.xaml.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-23T12:07:32.581Z",
+              "WhenOpened": "2025-02-23T13:27:01.55Z",
               "EditorCaption": ""
             }
           ]

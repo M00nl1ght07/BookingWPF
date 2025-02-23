@@ -1,0 +1,74 @@
+﻿<Page x:Class="BookingWPF.EditProfilePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="EditProfilePage">
+
+    <Grid Margin="20">
+        <Border Background="#2D2D2D"
+                CornerRadius="15"
+                Width="400"
+                Padding="40">
+            <StackPanel>
+                <TextBlock
+                          FontSize="28"
+                          Foreground="White"
+                          HorizontalAlignment="Center"
+                          Margin="0,0,0,30"><Run Language="ru-ru" Text="Редактирование"/></TextBlock>
+
+                <!-- Имя -->
+                <TextBlock Text="Имя"
+                          Foreground="White"
+                          Margin="0,0,0,5"/>
+                <TextBox Text="Иван Иванов"
+                         Background="#1E1E1E"
+                         Foreground="White"
+                         Height="40"
+                         Padding="10,0"
+                         VerticalContentAlignment="Center"
+                         BorderThickness="0"
+                         Margin="0,0,0,15"/>
+
+                <!-- Email -->
+                <TextBlock Text="Email"
+                          Foreground="White"
+                          Margin="0,0,0,5"/>
+                <TextBox Text="ivan@example.com"
+                         Background="#1E1E1E"
+                         Foreground="White"
+                         Height="40"
+                         Padding="10,0"
+                         VerticalContentAlignment="Center"
+                         BorderThickness="0"
+                         Margin="0,0,0,15"/>
+
+                <!-- Новый пароль -->
+                <TextBlock Text="Новый пароль (оставьте пустым, если не хотите менять)"
+                          Foreground="White"
+                          Margin="0,0,0,5"/>
+                <PasswordBox Background="#1E1E1E"
+                            Foreground="White"
+                            Height="40"
+                            Padding="10,0"
+                            VerticalContentAlignment="Center"
+                            BorderThickness="0"
+                            Margin="0,0,0,25"/>
+
+                <!-- Кнопки -->
+                <Button Content="Сохранить изменения"
+                        Background="#007ACC"
+                        Foreground="White"
+                        Height="40"
+                        BorderThickness="0"
+                        Margin="0,0,0,10"
+                        Click="SaveChanges_Click"/>
+
+                <Button Content="Отмена"
+                        Background="#DC3545"
+                        Foreground="White"
+                        Height="40"
+                        BorderThickness="0"
+                        Click="Cancel_Click"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Page>

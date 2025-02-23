@@ -7,11 +7,11 @@
       "RelativeMoniker": "D:0:0:{136BD319-7506-44B2-AA01-64FBF3C78193}|BookingWPF.csproj|solutionrelative:bookingpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{136BD319-7506-44B2-AA01-64FBF3C78193}|BookingWPF.csproj|c:\\users\\igris\\source\\repos\\bookingwpf\\bookingpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{136BD319-7506-44B2-AA01-64FBF3C78193}|BookingWPF.csproj|C:\\Users\\igris\\source\\repos\\BookingWPF\\bookingpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{136BD319-7506-44B2-AA01-64FBF3C78193}|BookingWPF.csproj|solutionrelative:bookingpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{136BD319-7506-44B2-AA01-64FBF3C78193}|BookingWPF.csproj|c:\\users\\igris\\source\\repos\\bookingwpf\\homepage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{136BD319-7506-44B2-AA01-64FBF3C78193}|BookingWPF.csproj|C:\\Users\\igris\\source\\repos\\BookingWPF\\homepage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{136BD319-7506-44B2-AA01-64FBF3C78193}|BookingWPF.csproj|solutionrelative:homepage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -44,7 +44,7 @@
               "RelativeDocumentMoniker": "BookingPage.xaml.cs",
               "ToolTip": "C:\\Users\\igris\\source\\repos\\BookingWPF\\BookingPage.xaml.cs",
               "RelativeToolTip": "BookingPage.xaml.cs",
-              "ViewState": "AQIAAG0AAAAAAAAAAAAIwIcAAABGAAAA",
+              "ViewState": "AQIAAG8AAAAAAAAAAAAIwIkAAABGAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-23T22:36:56.48Z",
               "EditorCaption": ""
@@ -58,8 +58,7 @@
               "ToolTip": "C:\\Users\\igris\\source\\repos\\BookingWPF\\BookingPage.xaml",
               "RelativeToolTip": "BookingPage.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-02-23T22:36:37.247Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-23T22:36:37.247Z"
             },
             {
               "$type": "Document",
@@ -71,8 +70,7 @@
               "RelativeToolTip": "HomePage.xaml.cs",
               "ViewState": "AQIAABkAAAAAAAAAAAAAABYAAAAQAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-23T21:17:36.308Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-23T21:17:36.308Z"
             },
             {
               "$type": "Document",

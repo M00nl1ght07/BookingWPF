@@ -94,7 +94,7 @@ namespace BookingWPF
                     return;
                 }
 
-                // Проверяем, не забронирован ли номер на эти даты
+                // Проверяем доступность номера
                 SqlParameter[] checkParams = {
                     new SqlParameter("@RoomID", _roomId),
                     new SqlParameter("@CheckIn", _checkIn),
@@ -102,7 +102,9 @@ namespace BookingWPF
                 };
 
                 using (SqlDataReader reader = DatabaseConnection.ExecuteReader(@"
-                    SELECT COUNT(*) FROM Bookings 
+                    EXEC UpdateBookingStatuses;
+                    SELECT COUNT(*) 
+                    FROM Bookings 
                     WHERE RoomID = @RoomID 
                     AND Status = 'Активно'
                     AND NOT (CheckOutDate <= @CheckIn OR CheckInDate >= @CheckOut)",

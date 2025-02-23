@@ -19,8 +19,18 @@ namespace BookingWPF
 
         private void LoadBookings()
         {
-            LoadActiveBookings();
-            LoadHistoryBookings();
+            try
+            {
+                // Сначала обновляем статусы
+                DatabaseConnection.ExecuteNonQuery("EXEC UpdateBookingStatuses");
+                
+                LoadActiveBookings();
+                LoadHistoryBookings();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при загрузке бронирований: {ex.Message}");
+            }
         }
 
         private void LoadActiveBookings()

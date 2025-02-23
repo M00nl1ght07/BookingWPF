@@ -48,19 +48,17 @@ namespace BookingWPF
         {
             try
             {
-                // Сначала обновляем статусы бронирований
-                DatabaseConnection.ExecuteNonQuery("EXEC UpdateBookingStatuses");
-
                 string query = @"
                     SELECT r.RoomID, r.RoomType, r.Area, r.Capacity, 
                            r.PricePerNight, r.Description, r.PhotoPath
                     FROM Rooms r
                     WHERE r.HotelID = @HotelID";
 
-                // Если выбраны даты, добавляем проверку на доступность
                 if (CheckInDatePicker.SelectedDate.HasValue && CheckOutDatePicker.SelectedDate.HasValue)
                 {
+                    // Используем процедуру для проверки доступности
                     query = @"
+                        EXEC UpdateBookingStatuses;
                         SELECT r.RoomID, r.RoomType, r.Area, r.Capacity, 
                                r.PricePerNight, r.Description, r.PhotoPath
                         FROM Rooms r

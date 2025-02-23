@@ -3,8 +3,9 @@
     "",
     "\\bin",
     "\\bin\\Debug",
-    "\\bin\\Release"
+    "\\bin\\Release",
+    "\\Photos"
   ],
-  "SelectedNode": "\\BookingWPF.sln",
+  "SelectedNode": "\\HomePage.xaml",
   "PreviewInSolutionExplorer": false
 }

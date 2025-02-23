@@ -206,6 +206,37 @@
                              BorderThickness="0"
                              Margin="0,0,0,25"/>
 
+                    <!-- Удобства -->
+                    <TextBlock Text="Удобства"
+                              Foreground="White"
+                              Margin="0,0,0,5"/>
+                    <StackPanel Margin="0,0,0,15">
+                        <CheckBox x:Name="WifiCheckBox" 
+                                 Content="Wi-Fi"
+                                 Foreground="White"
+                                 Margin="0,0,0,5"/>
+                        <CheckBox x:Name="ParkingCheckBox" 
+                                 Content="Парковка"
+                                 Foreground="White"
+                                 Margin="0,0,0,5"/>
+                        <CheckBox x:Name="PoolCheckBox" 
+                                 Content="Бассейн"
+                                 Foreground="White"
+                                 Margin="0,0,0,5"/>
+                        <CheckBox x:Name="GymCheckBox" 
+                                 Content="Фитнес-центр"
+                                 Foreground="White"
+                                 Margin="0,0,0,5"/>
+                        <CheckBox x:Name="RestaurantCheckBox" 
+                                 Content="Ресторан"
+                                 Foreground="White"
+                                 Margin="0,0,0,5"/>
+                        <CheckBox x:Name="SpaCheckBox" 
+                                 Content="Спа-центр"
+                                 Foreground="White"
+                                 Margin="0,0,0,5"/>
+                    </StackPanel>
+
                     <!-- Фото -->
                     <TextBlock Text="Фото отеля"
                               Foreground="White"

@@ -153,8 +153,7 @@
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type ScrollBar}">
                                     <Grid Background="Transparent">
-                                        <Border Background="#2D2D2D" 
-                                                CornerRadius="4"/>
+                                        <Border Background="#2D2D2D" CornerRadius="4"/>
                                         <Track x:Name="PART_Track">
                                             <Track.DecreaseRepeatButton>
                                                 <RepeatButton Command="{x:Static ScrollBar.PageLeftCommand}" 
@@ -177,173 +176,9 @@
                     </Style>
                 </ScrollViewer.Resources>
                 
-                <StackPanel Orientation="Horizontal">
-                    <!-- Карточки популярных отелей -->
-                    <Border Width="300" 
-                            Height="350"
-                            Margin="0,0,20,0"
-                            Background="#2D2D2D"
-                            CornerRadius="10">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="200"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <Image Source="https://via.placeholder.com/300x200"
-                                   Stretch="UniformToFill"/>
-                            <StackPanel Grid.Row="1" Margin="15">
-                                <TextBlock Text="Гранд Отель"
-                                           FontSize="18"
-                                           Foreground="White"
-                                           FontWeight="Bold"/>
-                                <TextBlock Text="Москва"
-                                           FontSize="14"
-                                           Foreground="#CCCCCC"/>
-                                <TextBlock Text="От 5000₽ за ночь"
-                                           FontSize="16"
-                                           Foreground="#007ACC"
-                                           Margin="0,10"/>
-                                <Button Content="Подробнее"
-                                        Background="#007ACC"
-                                        Foreground="White"
-                                        Padding="20,5"/>
-                            </StackPanel>
-                        </Grid>
-                    </Border>
-
-                    <!-- Добавьте еще несколько карточек отелей -->
-                    <Border Width="300" 
-                            Height="350"
-                            Margin="0,0,20,0"
-                            Background="#2D2D2D"
-                            CornerRadius="10">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="200"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <Image Source="https://via.placeholder.com/300x200"
-                                   Stretch="UniformToFill"/>
-                            <StackPanel Grid.Row="1" Margin="15">
-                                <TextBlock Text="Приморский Спа-Отель"
-                                           FontSize="18"
-                                           Foreground="White"
-                                           FontWeight="Bold"/>
-                                <TextBlock Text="Сочи"
-                                           FontSize="14"
-                                           Foreground="#CCCCCC"/>
-                                <TextBlock Text="От 7500₽ за ночь"
-                                           FontSize="16"
-                                           Foreground="#007ACC"
-                                           Margin="0,10"/>
-                                <Button Content="Подробнее"
-                                        Background="#007ACC"
-                                        Foreground="White"
-                                        Padding="20,5"/>
-                            </StackPanel>
-                        </Grid>
-                    </Border>
-
-                    <Border Width="300" 
-                            Height="350"
-                            Margin="0,0,20,0"
-                            Background="#2D2D2D"
-                            CornerRadius="10">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="200"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <Image Source="https://via.placeholder.com/300x200"
-                                   Stretch="UniformToFill"/>
-                            <StackPanel Grid.Row="1" Margin="15">
-                                <TextBlock Text="Панорама Отель"
-                                           FontSize="18"
-                                           Foreground="White"
-                                           FontWeight="Bold"/>
-                                <TextBlock Text="Санкт-Петербург"
-                                           FontSize="14"
-                                           Foreground="#CCCCCC"/>
-                                <TextBlock Text="От 6000₽ за ночь"
-                                           FontSize="16"
-                                           Foreground="#007ACC"
-                                           Margin="0,10"/>
-                                <Button Content="Подробнее"
-                                        Background="#007ACC"
-                                        Foreground="White"
-                                        Padding="20,5"/>
-                            </StackPanel>
-                        </Grid>
-                    </Border>
-
-                    <!-- Добавьте после существующих карточек отелей -->
-                    <Border Width="300" 
-                            Height="350"
-                            Margin="0,0,20,0"
-                            Background="#2D2D2D"
-                            CornerRadius="10">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="200"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <Image Source="https://via.placeholder.com/300x200"
-                                   Stretch="UniformToFill"/>
-                            <StackPanel Grid.Row="1" Margin="15">
-                                <TextBlock Text="Горный Курорт"
-                                          FontSize="18"
-                                          Foreground="White"
-                                          FontWeight="Bold"/>
-                                <TextBlock Text="Красная Поляна"
-                                          FontSize="14"
-                                          Foreground="#E0E0E0"/>
-                                <TextBlock Text="От 8500₽ за ночь"
-                                          FontSize="16"
-                                          Foreground="#00A0FF"
-                                          FontWeight="SemiBold"
-                                          Margin="0,10"/>
-                                <Button Content="Подробнее"
-                                        Background="#007ACC"
-                                        Foreground="White"
-                                        Padding="20,5"
-                                        BorderThickness="0"/>
-                            </StackPanel>
-                        </Grid>
-                    </Border>
-
-                    <Border Width="300" 
-                            Height="350"
-                            Margin="0,0,20,0"
-                            Background="#2D2D2D"
-                            CornerRadius="10">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="200"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <Image Source="https://via.placeholder.com/300x200"
-                                   Stretch="UniformToFill"/>
-                            <StackPanel Grid.Row="1" Margin="15">
-                                <TextBlock Text="Волжская Ривьера"
-                                          FontSize="18"
-                                          Foreground="White"
-                                          FontWeight="Bold"/>
-                                <TextBlock Text="Казань"
-                                          FontSize="14"
-                                          Foreground="#E0E0E0"/>
-                                <TextBlock Text="От 4500₽ за ночь"
-                                          FontSize="16"
-                                          Foreground="#00A0FF"
-                                          FontWeight="SemiBold"
-                                          Margin="0,10"/>
-                                <Button Content="Подробнее"
-                                        Background="#007ACC"
-                                        Foreground="White"
-                                        Padding="20,5"
-                                        BorderThickness="0"/>
-                            </StackPanel>
-                        </Grid>
-                    </Border>
+                <StackPanel x:Name="PopularHotelsPanel" 
+                            Orientation="Horizontal">
+                    <!-- Карточки отелей будут добавляться здесь динамически -->
                 </StackPanel>
             </ScrollViewer>
 
@@ -385,13 +220,17 @@
                                     Foreground="White"
                                     Padding="20,5"
                                     BorderThickness="0"
-                                    HorizontalAlignment="Left"/>
+                                    HorizontalAlignment="Left"
+                                    Click="SpecialOffer_Click"/>
                         </StackPanel>
                         <Border Grid.Column="1" 
                                 Background="#1E1E1E"
                                 CornerRadius="0,10,10,0">
-                            <Image Source="https://via.placeholder.com/200x200"
-                                   Stretch="UniformToFill"/>
+                            <Image x:Name="Image1"
+                                   Source="pack://application:,,,/BookingWPF;component/Photos/skidka1.jpg"
+                                   Stretch="UniformToFill"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
                         </Border>
                     </Grid>
                 </Border>
@@ -422,13 +261,17 @@
                                     Foreground="White"
                                     Padding="20,5"
                                     BorderThickness="0"
-                                    HorizontalAlignment="Left"/>
+                                    HorizontalAlignment="Left"
+                                    Click="SpecialOffer_Click"/>
                         </StackPanel>
                         <Border Grid.Column="1" 
                                 Background="#1E1E1E"
                                 CornerRadius="0,10,10,0">
-                            <Image Source="https://via.placeholder.com/200x200"
-                                   Stretch="UniformToFill"/>
+                            <Image x:Name="Image2"
+                                   Source="pack://application:,,,/BookingWPF;component/Photos/cashback10.png"
+                                   Stretch="UniformToFill"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
                         </Border>
                     </Grid>
                 </Border>

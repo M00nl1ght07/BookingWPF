@@ -67,11 +67,11 @@
 
         <!-- Информация об отеле -->
         <StackPanel Grid.Row="0" Margin="0,0,0,30">
-            <TextBlock Text="Гранд Отель"
+            <TextBlock x:Name="HotelNameText"
                       FontSize="32"
                       Foreground="White"
                       FontWeight="Bold"/>
-            <TextBlock Text="Москва"
+            <TextBlock x:Name="HotelCityText"
                       FontSize="18"
                       Foreground="#E0E0E0"
                       Margin="0,5"/>
@@ -117,246 +117,15 @@
                         Padding="20,10"
                         Height="40"
                         BorderThickness="0"
-                        Margin="10,0,0,0"/>
+                        Margin="10,0,0,0"
+                        Click="SearchRooms_Click"/>
             </Grid>
         </Border>
 
         <!-- Список номеров -->
         <ScrollViewer Grid.Row="2">
-            <StackPanel>
-                <!-- Первая карточка (существующая) -->
-                <Border Background="#2D2D2D"
-                        CornerRadius="10"
-                        Margin="0,0,0,20"
-                        Padding="20">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="250"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-
-                        <!-- Фото номера -->
-                        <Border Background="#1E1E1E"
-                                Height="150"
-                                CornerRadius="5"/>
-
-                        <!-- Информация о номере -->
-                        <StackPanel Grid.Column="1" Margin="20,0">
-                            <TextBlock Text="Люкс с видом на город"
-                                      FontSize="24"
-                                      Foreground="White"
-                                      FontWeight="Bold"/>
-
-                            <WrapPanel Margin="0,10">
-                                <Border Background="#1E1E1E"
-                                        CornerRadius="5"
-                                        Padding="10,5"
-                                        Margin="0,0,10,5">
-                                    <TextBlock Text="Площадь: 45 м²"
-                                              Foreground="#E0E0E0"/>
-                                </Border>
-                                <Border Background="#1E1E1E"
-                                        CornerRadius="5"
-                                        Padding="10,5"
-                                        Margin="0,0,10,5">
-                                    <TextBlock Text="2 комнаты"
-                                              Foreground="#E0E0E0"/>
-                                </Border>
-                                <Border Background="#1E1E1E"
-                                        CornerRadius="5"
-                                        Padding="10,5"
-                                        Margin="0,0,10,5">
-                                    <TextBlock Text="До 3 гостей"
-                                              Foreground="#E0E0E0"/>
-                                </Border>
-                            </WrapPanel>
-
-                            <TextBlock Text="Удобства:"
-                                      Foreground="White"
-                                      Margin="0,10,0,5"/>
-                            <TextBlock Text="Wi-Fi, Кондиционер, Мини-бар, Сейф, Телевизор"
-                                      Foreground="#E0E0E0"
-                                      TextWrapping="Wrap"/>
-                        </StackPanel>
-
-                        <!-- Цена и кнопка -->
-                        <StackPanel Grid.Column="2" 
-                                  VerticalAlignment="Center"
-                                  MinWidth="200">
-                            <TextBlock Text="15000₽"
-                                      FontSize="24"
-                                      Foreground="#00A0FF"
-                                      FontWeight="Bold"
-                                      HorizontalAlignment="Center"
-                                      Margin="0,0,0,10"/>
-                            <TextBlock Text="за ночь"
-                                      Foreground="#E0E0E0"
-                                      HorizontalAlignment="Center"
-                                      Margin="0,0,0,10"/>
-                            <Button Content="Забронировать"
-                                    Background="#007ACC"
-                                    Foreground="White"
-                                    Padding="20,10"
-                                    Height="40"
-                                    BorderThickness="0"/>
-                        </StackPanel>
-                    </Grid>
-                </Border>
-
-                <!-- Вторая карточка -->
-                <Border Background="#2D2D2D"
-                        CornerRadius="10"
-                        Margin="0,0,0,20"
-                        Padding="20">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="250"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-
-                        <Border Background="#1E1E1E"
-                                Height="150"
-                                CornerRadius="5"/>
-
-                        <StackPanel Grid.Column="1" Margin="20,0">
-                            <TextBlock Text="Стандартный номер"
-                                      FontSize="24"
-                                      Foreground="White"
-                                      FontWeight="Bold"/>
-
-                            <WrapPanel Margin="0,10">
-                                <Border Background="#1E1E1E"
-                                        CornerRadius="5"
-                                        Padding="10,5"
-                                        Margin="0,0,10,5">
-                                    <TextBlock Text="Площадь: 25 м²"
-                                              Foreground="#E0E0E0"/>
-                                </Border>
-                                <Border Background="#1E1E1E"
-                                        CornerRadius="5"
-                                        Padding="10,5"
-                                        Margin="0,0,10,5">
-                                    <TextBlock Text="1 комната"
-                                              Foreground="#E0E0E0"/>
-                                </Border>
-                                <Border Background="#1E1E1E"
-                                        CornerRadius="5"
-                                        Padding="10,5"
-                                        Margin="0,0,10,5">
-                                    <TextBlock Text="До 2 гостей"
-                                              Foreground="#E0E0E0"/>
-                                </Border>
-                            </WrapPanel>
-
-                            <TextBlock Text="Удобства:"
-                                      Foreground="White"
-                                      Margin="0,10,0,5"/>
-                            <TextBlock Text="Wi-Fi, Кондиционер, Телевизор"
-                                      Foreground="#E0E0E0"
-                                      TextWrapping="Wrap"/>
-                        </StackPanel>
-
-                        <StackPanel Grid.Column="2" 
-                                  VerticalAlignment="Center"
-                                  MinWidth="200">
-                            <TextBlock Text="8000₽"
-                                      FontSize="24"
-                                      Foreground="#00A0FF"
-                                      FontWeight="Bold"
-                                      HorizontalAlignment="Center"
-                                      Margin="0,0,0,10"/>
-                            <TextBlock Text="за ночь"
-                                      Foreground="#E0E0E0"
-                                      HorizontalAlignment="Center"
-                                      Margin="0,0,0,10"/>
-                            <Button Content="Забронировать"
-                                    Background="#007ACC"
-                                    Foreground="White"
-                                    Padding="20,10"
-                                    Height="40"
-                                    BorderThickness="0"/>
-                        </StackPanel>
-                    </Grid>
-                </Border>
-
-                <!-- Третья карточка -->
-                <Border Background="#2D2D2D"
-                        CornerRadius="10"
-                        Margin="0,0,0,20"
-                        Padding="20">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="250"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-
-                        <Border Background="#1E1E1E"
-                                Height="150"
-                                CornerRadius="5"/>
-
-                        <StackPanel Grid.Column="1" Margin="20,0">
-                            <TextBlock Text="Стандартный номер"
-                                      FontSize="24"
-                                      Foreground="White"
-                                      FontWeight="Bold"/>
-
-                            <WrapPanel Margin="0,10">
-                                <Border Background="#1E1E1E"
-                                        CornerRadius="5"
-                                        Padding="10,5"
-                                        Margin="0,0,10,5">
-                                    <TextBlock Text="Площадь: 25 м²"
-                                              Foreground="#E0E0E0"/>
-                                </Border>
-                                <Border Background="#1E1E1E"
-                                        CornerRadius="5"
-                                        Padding="10,5"
-                                        Margin="0,0,10,5">
-                                    <TextBlock Text="1 комната"
-                                              Foreground="#E0E0E0"/>
-                                </Border>
-                                <Border Background="#1E1E1E"
-                                        CornerRadius="5"
-                                        Padding="10,5"
-                                        Margin="0,0,10,5">
-                                    <TextBlock Text="До 2 гостей"
-                                              Foreground="#E0E0E0"/>
-                                </Border>
-                            </WrapPanel>
-
-                            <TextBlock Text="Удобства:"
-                                      Foreground="White"
-                                      Margin="0,10,0,5"/>
-                            <TextBlock Text="Wi-Fi, Кондиционер, Телевизор"
-                                      Foreground="#E0E0E0"
-                                      TextWrapping="Wrap"/>
-                        </StackPanel>
-
-                        <StackPanel Grid.Column="2" 
-                                  VerticalAlignment="Center"
-                                  MinWidth="200">
-                            <TextBlock Text="8000₽"
-                                      FontSize="24"
-                                      Foreground="#00A0FF"
-                                      FontWeight="Bold"
-                                      HorizontalAlignment="Center"
-                                      Margin="0,0,0,10"/>
-                            <TextBlock Text="за ночь"
-                                      Foreground="#E0E0E0"
-                                      HorizontalAlignment="Center"
-                                      Margin="0,0,0,10"/>
-                            <Button Content="Забронировать"
-                                    Background="#007ACC"
-                                    Foreground="White"
-                                    Padding="20,10"
-                                    Height="40"
-                                    BorderThickness="0"/>
-                        </StackPanel>
-                    </Grid>
-                </Border>
+            <StackPanel x:Name="RoomsStackPanel">
+                <!-- Карточки номеров будут добавляться здесь динамически -->
             </StackPanel>
         </ScrollViewer>
     </Grid>

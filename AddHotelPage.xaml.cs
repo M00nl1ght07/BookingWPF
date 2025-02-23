@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Data.SqlClient;
 using Microsoft.Win32;
 using System.IO;
+using System.Collections.Generic;
 
 namespace BookingWPF
 {
@@ -44,23 +45,71 @@ namespace BookingWPF
 
             try
             {
-                SqlParameter[] parameters = {
-                    new SqlParameter("@Name", name),
-                    new SqlParameter("@City", city),
-                    new SqlParameter("@Rating", rating),
-                    new SqlParameter("@Description", description ?? ""),
-                    new SqlParameter("@BasePrice", basePrice),
-                    new SqlParameter("@IsPopular", false),
-                    new SqlParameter("@PhotoPath", string.IsNullOrEmpty(_selectedPhotoPath) ? (object)DBNull.Value : _selectedPhotoPath)
-                };
+                // Начинаем транзакцию
+                using (SqlConnection connection = DatabaseConnection.GetConnection())
+                {
+                    connection.Open();
+                    using (SqlTransaction transaction = connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            // Добавляем отель
+                            SqlCommand cmd = new SqlCommand(@"
+                                INSERT INTO Hotels (Name, City, Rating, Description, BasePrice, IsPopular, PhotoPath)
+                                VALUES (@Name, @City, @Rating, @Description, @BasePrice, @IsPopular, @PhotoPath);
+                                SELECT SCOPE_IDENTITY();", connection, transaction);
 
-                DatabaseConnection.ExecuteNonQuery(
-                    "INSERT INTO Hotels (Name, City, Rating, Description, BasePrice, IsPopular, PhotoPath) " +
-                    "VALUES (@Name, @City, @Rating, @Description, @BasePrice, @IsPopular, @PhotoPath)", parameters);
+                            cmd.Parameters.AddRange(new SqlParameter[] {
+                                new SqlParameter("@Name", name),
+                                new SqlParameter("@City", city),
+                                new SqlParameter("@Rating", rating),
+                                new SqlParameter("@Description", description ?? ""),
+                                new SqlParameter("@BasePrice", basePrice),
+                                new SqlParameter("@IsPopular", false),
+                                new SqlParameter("@PhotoPath", string.IsNullOrEmpty(_selectedPhotoPath) ? 
+                                    (object)DBNull.Value : _selectedPhotoPath)
+                            });
 
-                MessageBox.Show("Отель успешно добавлен!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
-                _adminPanel.RefreshData();
-                NavigationService.GoBack();
+                            // Получаем ID добавленного отеля
+                            int hotelId = Convert.ToInt32(cmd.ExecuteScalar());
+
+                            // Добавляем удобства
+                            var amenities = new List<CheckBox>
+                            {
+                                WifiCheckBox,
+                                ParkingCheckBox,
+                                PoolCheckBox,
+                                GymCheckBox,
+                                RestaurantCheckBox,
+                                SpaCheckBox
+                            };
+
+                            foreach (var amenity in amenities)
+                            {
+                                if (amenity.IsChecked == true)
+                                {
+                                    cmd = new SqlCommand(
+                                        "INSERT INTO HotelAmenities (HotelID, AmenityName) VALUES (@HotelID, @AmenityName)",
+                                        connection, transaction);
+                                    cmd.Parameters.AddWithValue("@HotelID", hotelId);
+                                    cmd.Parameters.AddWithValue("@AmenityName", amenity.Content.ToString());
+                                    cmd.ExecuteNonQuery();
+                                }
+                            }
+
+                            transaction.Commit();
+                            MessageBox.Show("Отель успешно добавлен!", "Успех", 
+                                MessageBoxButton.OK, MessageBoxImage.Information);
+                            _adminPanel.RefreshData();
+                            NavigationService.GoBack();
+                        }
+                        catch (Exception ex)
+                        {
+                            transaction.Rollback();
+                            throw new Exception("Ошибка при добавлении отеля: " + ex.Message);
+                        }
+                    }
+                }
             }
             catch (Exception ex)
             {

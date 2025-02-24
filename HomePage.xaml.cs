@@ -18,7 +18,7 @@ namespace BookingWPF
             LoadCities();
             LoadPopularHotels();
             
-            // Устанавливаем минимальную дату как сегодня
+            // Минимальная дата бронирования - сегодня
             CheckInDatePicker.DisplayDateStart = DateTime.Today;
             CheckOutDatePicker.DisplayDateStart = DateTime.Today;
 

@@ -1,11 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\bin",
-    "\\bin\\Debug",
-    "\\bin\\Release",
-    "\\Photos"
+    ""
   ],
-  "SelectedNode": "\\HomePage.xaml",
+  "SelectedNode": "\\BookingWPF.sln",
   "PreviewInSolutionExplorer": false
 }

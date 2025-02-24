@@ -4,7 +4,6 @@
       Title="RoomSelectionPage">
 
     <Page.Resources>
-        <!-- Стиль для скроллбара -->
         <Style x:Key="ScrollBarThumb" TargetType="{x:Type Thumb}">
             <Setter Property="OverridesDefaultStyle" Value="true"/>
             <Setter Property="IsTabStop" Value="false"/>
@@ -137,7 +136,7 @@
         <!-- Список номеров -->
         <ScrollViewer Grid.Row="2">
             <StackPanel x:Name="RoomsStackPanel">
-                <!-- Карточки номеров будут добавляться здесь динамически -->
+                <!-- Карточки номеров динамические -->
             </StackPanel>
         </ScrollViewer>
     </Grid>

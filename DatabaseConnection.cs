@@ -6,12 +6,12 @@ namespace BookingWPF
     public static class DatabaseConnection
     {
         private static readonly string connectionString =
-            "Server=95.31.128.97,1433;" +
-            "Database=HotelBookingDB;" +
-            "User Id=admin;" +
-            "Password=winServer=;" +
-            "Encrypt=True;" +
-            "TrustServerCertificate=True;";
+            "Server=95.31.128.97,1433;" + //host
+            "Database=HotelBookingDB;" + //db name
+            "User Id=admin;" + //user
+            "Password=winServer=;" + //pw
+            "Encrypt=True;" + //shifr
+            "TrustServerCertificate=True;"; //doveryat sertificaty
 
         public static SqlConnection GetConnection()
         {
@@ -43,7 +43,6 @@ namespace BookingWPF
             }
         }
 
-        // Вспомогательный метод для выполнения команд без возврата данных
         public static void ExecuteNonQuery(string query, SqlParameter[] parameters = null)
         {
             using (SqlConnection connection = GetConnection())
@@ -68,7 +67,6 @@ namespace BookingWPF
             }
         }
 
-        // Вспомогательный метод для получения данных
         public static SqlDataReader ExecuteReader(string query, SqlParameter[] parameters = null)
         {
             SqlConnection connection = GetConnection();

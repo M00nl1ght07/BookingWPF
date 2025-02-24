@@ -45,7 +45,7 @@ namespace BookingWPF
 
             try
             {
-                // Начинаем транзакцию
+                // Использование БД
                 using (SqlConnection connection = DatabaseConnection.GetConnection())
                 {
                     connection.Open();
@@ -72,30 +72,6 @@ namespace BookingWPF
 
                             // Получаем ID добавленного отеля
                             int hotelId = Convert.ToInt32(cmd.ExecuteScalar());
-
-                            // Добавляем удобства
-                            var amenities = new List<CheckBox>
-                            {
-                                WifiCheckBox,
-                                ParkingCheckBox,
-                                PoolCheckBox,
-                                GymCheckBox,
-                                RestaurantCheckBox,
-                                SpaCheckBox
-                            };
-
-                            foreach (var amenity in amenities)
-                            {
-                                if (amenity.IsChecked == true)
-                                {
-                                    cmd = new SqlCommand(
-                                        "INSERT INTO HotelAmenities (HotelID, AmenityName) VALUES (@HotelID, @AmenityName)",
-                                        connection, transaction);
-                                    cmd.Parameters.AddWithValue("@HotelID", hotelId);
-                                    cmd.Parameters.AddWithValue("@AmenityName", amenity.Content.ToString());
-                                    cmd.ExecuteNonQuery();
-                                }
-                            }
 
                             transaction.Commit();
                             MessageBox.Show("Отель успешно добавлен!", "Успех", 

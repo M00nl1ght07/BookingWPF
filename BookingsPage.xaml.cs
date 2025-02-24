@@ -21,7 +21,7 @@ namespace BookingWPF
         {
             try
             {
-                // Сначала обновляем статусы
+                // Обновление статусов
                 DatabaseConnection.ExecuteNonQuery("EXEC UpdateBookingStatuses");
                 
                 LoadActiveBookings();

@@ -11,9 +11,6 @@ using System.Linq;
 
 namespace BookingWPF
 {
-    /// <summary>
-    /// Логика взаимодействия для HotelsPage.xaml
-    /// </summary>
     public partial class HotelsPage : Page
     {
         private WrapPanel hotelsPanel;
@@ -164,12 +161,6 @@ namespace BookingWPF
                 MessageBox.Show($"Ошибка при загрузке отелей: {ex.Message}", 
                     "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-        }
-
-        private void ViewRooms_Click(int hotelId)
-        {
-            // Здесь будет переход на страницу с номерами отеля
-            // NavigationService.Navigate(new HotelDetailsPage(hotelId));
         }
 
         private void UpdateFilters()

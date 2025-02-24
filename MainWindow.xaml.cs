@@ -4,9 +4,6 @@ using System.Windows.Controls;
 
 namespace BookingWPF
 {
-    /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public User CurrentUser { get; private set; }

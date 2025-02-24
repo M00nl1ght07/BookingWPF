@@ -6,7 +6,6 @@
 
       Title="HomePage">
 
-    <!-- Стиль для скроллбара -->
     <Page.Resources>
         <Style x:Key="ScrollBarThumb" TargetType="{x:Type Thumb}">
             <Setter Property="OverridesDefaultStyle" Value="true"/>
@@ -165,7 +164,7 @@
                 
                 <StackPanel x:Name="PopularHotelsPanel" 
                             Orientation="Horizontal">
-                    <!-- Карточки отелей будут добавляться здесь динамически -->
+                    <!-- Динамическое добавление карточек -->
                 </StackPanel>
             </ScrollViewer>
 

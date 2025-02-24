@@ -44,3 +44,34 @@
   - Удаление из списка популярных
   - Отображение на главной странице
  
+Демонстрация функционала приложения: https://youtu.be/S_lwXfzxfXc
+
+Гайд по запуску:
+1) На рабочем столе ПКМ - Открыть в терминале, прописать: git clone https://github.com/M00nl1ght07/BookingWPF.git
+![image](https://github.com/user-attachments/assets/0794e966-4e06-43b2-8111-d6e0e44a68bd)
+2) После успешного скачивания из удаленного репозитория открыть папку в IDE - Visual Studio.
+![image](https://github.com/user-attachments/assets/edad64b2-14bc-49df-aa98-11ccefbcb94e)
+![image](https://github.com/user-attachments/assets/4bebab10-d2c1-460e-b8eb-f1ea52a21d1c)
+3) В обозревателе решений необходимо нажать на BookingWPF.sin, для перехода в директорию решения, а не папки
+![image](https://github.com/user-attachments/assets/c02dc7cb-e841-4fe1-a023-840692b9d59e)
+![image](https://github.com/user-attachments/assets/2447ef65-2bcb-4a68-a970-a0ab295f312e)
+4) База данных располагается на удаленном сервере, для доступа к базе данных необходимо в SQL - Managment Studio выполнить подключение согласно данным с фото, обязательно указав "Доверять сертификату сервера"
+![image](https://github.com/user-attachments/assets/c657ee6b-e987-4bed-b038-cb10bf92c5a8)
+Данные для подключения:
+Тип сервера: Ядро СУБД
+Имя сервера: 95.31.128.97,1433
+Проверка подлинности: Проверка подлинности SQL Server
+Имя для входа: admin
+Пароль: winServer=
+Шифрование: обязательное
+Прожать галочку доверять сертификату сервера!
+5) В IDE Visual Studio БД уже подключена, однако, нужно удостовериться в наличии NuGet пакета для взаимодействия с SQL Server
+![image](https://github.com/user-attachments/assets/67fda4c4-e7b6-418a-9f2d-3556c3161eef)
+![image](https://github.com/user-attachments/assets/8cb60b79-4342-4c2d-b8c0-44aac732f65d)
+ПКМ по решению - Управление пакетами NuGet
+В случае, если пакет не был успешно установлен, необходимо во вкладке Обзор в поиске найти пакет System.Data.SqlClient и установить его
+![image](https://github.com/user-attachments/assets/0cd6cbd7-4624-4b3e-be56-cf088f3228b2)
+6) Для запуска проекта можно использовать пуск IDE
+![image](https://github.com/user-attachments/assets/bef878fd-0392-449e-998a-4de874996279)
+7) Проект успешно запущен!
+![image](https://github.com/user-attachments/assets/999e13be-839b-492c-bdfe-309620d902bb)

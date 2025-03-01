@@ -47,7 +47,7 @@
 
 ## Демонстрация функционала приложения
 
-[![Демонстрация приложения](https://img.youtube.com/vi/S_lwXfzxfXc/0.jpg)](https://youtu.be/S_lwXfzxfXc)
+[![Демонстрация приложения](https://youtu.be/S_lwXfzxfXc)
 
 ## Гайд по запуску
 

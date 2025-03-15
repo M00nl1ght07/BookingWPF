@@ -4,7 +4,7 @@
 [![Демонстрация приложения](https://img.youtube.com/vi/S_lwXfzxfXc/0.jpg)](https://youtu.be/S_lwXfzxfXc)
 
 **Функционал добавленный в обновлении**
-https://youtu.be/VeZ8I2c3MCc
+[![Демонстрация обновления](https://img.youtube.com/vi/VeZ8I2c3MCc/0.jpg)](https://youtu.be/VeZ8I2c3MCc)
 ---
 
 ## 🚀 Основной функционал

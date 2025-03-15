@@ -7,11 +7,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Input;
 using System.IO;
 using System.Windows.Navigation;
+using System.Threading.Tasks;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace BookingWPF
 {
     public partial class HomePage : Page
     {
+        private Dictionary<TextBlock, decimal> _originalPrices = new Dictionary<TextBlock, decimal>();
+
         public HomePage()
         {
             InitializeComponent();
@@ -31,6 +36,15 @@ namespace BookingWPF
             catch (Exception ex)
             {
                 MessageBox.Show($"Ошибка загрузки изображений: {ex.Message}");
+            }
+
+            // После загрузки отелей сразу конвертируем в текущую валюту, если она не рубли
+            if (App.CurrentCurrency != "RUB")
+            {
+                Dispatcher.BeginInvoke(new Action(async () =>
+                {
+                    await UpdatePrices(App.CurrentCurrency);
+                }));
             }
         }
 
@@ -100,7 +114,7 @@ namespace BookingWPF
             try
             {
                 using (SqlDataReader reader = DatabaseConnection.ExecuteReader(
-                    "SELECT HotelID, Name, City, BasePrice, Description, PhotoPath FROM Hotels WHERE IsPopular = 1"))
+                    "SELECT h.HotelID, h.Name, h.City, h.Rating, h.BasePrice, h.Description, h.PhotoPath FROM Hotels h"))
                 {
                     PopularHotelsPanel.Children.Clear();
 
@@ -152,13 +166,19 @@ namespace BookingWPF
                             Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#CCCCCC"))
                         });
 
-                        infoPanel.Children.Add(new TextBlock
+                        decimal originalPrice = Convert.ToDecimal(reader["BasePrice"]);
+                        var priceTextBlock = new TextBlock
                         {
-                            Text = $"От {reader["BasePrice"]:C0} за ночь",
+                            Text = $"От {originalPrice} ₽ за ночь",
                             FontSize = 16,
                             Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#007ACC")),
                             Margin = new Thickness(0, 10, 0, 10)
-                        });
+                        };
+
+                        // Сохраняем оригинальную цену сразу при создании
+                        _originalPrices[priceTextBlock] = originalPrice;
+
+                        infoPanel.Children.Add(priceTextBlock);
 
                         Button detailsButton = new Button
                         {
@@ -197,6 +217,40 @@ namespace BookingWPF
         private void SpecialOffer_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new HotelsPage());
+        }
+
+        public async Task UpdatePrices(string currency)
+        {
+            foreach (var hotel in PopularHotelsPanel.Children.OfType<Border>())
+            {
+                var priceTextBlock = FindPriceTextBlock(hotel);
+                if (priceTextBlock != null)
+                {
+                    decimal convertedPrice = await App.CurrencyService.ConvertPrice(_originalPrices[priceTextBlock], currency);
+                    string currencySymbol;
+                    switch (currency)
+                    {
+                        case "USD":
+                            currencySymbol = "$";
+                            break;
+                        case "EUR":
+                            currencySymbol = "€";
+                            break;
+                        default:
+                            currencySymbol = "₽";
+                            break;
+                    }
+                    priceTextBlock.Text = $"От {convertedPrice} {currencySymbol} за ночь";
+                }
+            }
+        }
+
+        private TextBlock FindPriceTextBlock(Border hotel)
+        {
+            var grid = hotel.Child as Grid;
+            var stackPanel = grid?.Children.OfType<StackPanel>().FirstOrDefault();
+            return stackPanel?.Children.OfType<TextBlock>()
+                .FirstOrDefault(t => t.Text.StartsWith("От"));
         }
     }
 

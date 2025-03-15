@@ -5,6 +5,9 @@ using System.Data.SqlClient;
 using Microsoft.Win32;
 using System.IO;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using System.Windows.Input;
+using System.Globalization;
 
 namespace BookingWPF
 {
@@ -43,9 +46,13 @@ namespace BookingWPF
                 return;
             }
 
+            if (!ValidateCoordinates())
+            {
+                return;
+            }
+
             try
             {
-                // Использование БД
                 using (SqlConnection connection = DatabaseConnection.GetConnection())
                 {
                     connection.Open();
@@ -53,24 +60,21 @@ namespace BookingWPF
                     {
                         try
                         {
-                            // Добавляем отель
                             SqlCommand cmd = new SqlCommand(@"
-                                INSERT INTO Hotels (Name, City, Rating, Description, BasePrice, IsPopular, PhotoPath)
-                                VALUES (@Name, @City, @Rating, @Description, @BasePrice, @IsPopular, @PhotoPath);
+                                INSERT INTO Hotels (Name, City, Rating, Description, BasePrice, IsPopular, PhotoPath, Latitude, Longitude)
+                                VALUES (@Name, @City, @Rating, @Description, @BasePrice, @IsPopular, @PhotoPath, @Latitude, @Longitude);
                                 SELECT SCOPE_IDENTITY();", connection, transaction);
 
-                            cmd.Parameters.AddRange(new SqlParameter[] {
-                                new SqlParameter("@Name", name),
-                                new SqlParameter("@City", city),
-                                new SqlParameter("@Rating", rating),
-                                new SqlParameter("@Description", description ?? ""),
-                                new SqlParameter("@BasePrice", basePrice),
-                                new SqlParameter("@IsPopular", false),
-                                new SqlParameter("@PhotoPath", string.IsNullOrEmpty(_selectedPhotoPath) ? 
-                                    (object)DBNull.Value : _selectedPhotoPath)
-                            });
+                            cmd.Parameters.AddWithValue("@Name", name);
+                            cmd.Parameters.AddWithValue("@City", city);
+                            cmd.Parameters.AddWithValue("@Rating", rating);
+                            cmd.Parameters.AddWithValue("@Description", description);
+                            cmd.Parameters.AddWithValue("@BasePrice", basePrice);
+                            cmd.Parameters.AddWithValue("@IsPopular", false);
+                            cmd.Parameters.AddWithValue("@PhotoPath", _selectedPhotoPath ?? "");
+                            cmd.Parameters.AddWithValue("@Latitude", double.Parse(LatitudeTextBox.Text, CultureInfo.InvariantCulture));
+                            cmd.Parameters.AddWithValue("@Longitude", double.Parse(LongitudeTextBox.Text, CultureInfo.InvariantCulture));
 
-                            // Получаем ID добавленного отеля
                             int hotelId = Convert.ToInt32(cmd.ExecuteScalar());
 
                             transaction.Commit();
@@ -132,6 +136,37 @@ namespace BookingWPF
                         MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
+        }
+
+        private void CoordinateTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            // Разрешаем ввод цифр, точки и минуса
+            Regex regex = new Regex(@"^[0-9.-]+$");
+            e.Handled = !regex.IsMatch(e.Text);
+        }
+
+        private bool ValidateCoordinates()
+        {
+            if (!double.TryParse(LatitudeTextBox.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out double lat) ||
+                !double.TryParse(LongitudeTextBox.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out double lon))
+            {
+                MessageBox.Show("Координаты должны быть числами");
+                return false;
+            }
+
+            if (lat < -90 || lat > 90)
+            {
+                MessageBox.Show("Широта должна быть в диапазоне от -90 до 90");
+                return false;
+            }
+
+            if (lon < -180 || lon > 180)
+            {
+                MessageBox.Show("Долгота должна быть в диапазоне от -180 до 180");
+                return false;
+            }
+
+            return true;
         }
     }
 }

@@ -3,18 +3,32 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Data.SqlClient;
 using System.Windows.Media;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Linq;
+using System.Windows.Threading;
 
 namespace BookingWPF
 {
     public partial class BookingsPage : Page
     {
         private readonly User _currentUser;
+        private Dictionary<TextBlock, decimal> _originalPrices = new Dictionary<TextBlock, decimal>();
 
         public BookingsPage(User currentUser)
         {
             InitializeComponent();
             _currentUser = currentUser;
             LoadBookings();
+            
+            // После загрузки бронирований конвертируем цены
+            if (App.CurrentCurrency != "RUB")
+            {
+                Dispatcher.BeginInvoke(new Action(async () =>
+                {
+                    await UpdatePrices(App.CurrentCurrency);
+                }));
+            }
         }
 
         private void LoadBookings()
@@ -226,6 +240,61 @@ namespace BookingWPF
                     MessageBox.Show($"Ошибка при отмене бронирования: {ex.Message}");
                 }
             }
+        }
+
+        public async Task UpdatePrices(string currency)
+        {
+            // Обновляем цены в активных бронированиях
+            foreach (var booking in ActiveBookingsPanel.Children.OfType<Border>())
+            {
+                await UpdateBookingPrice(booking, currency);
+            }
+
+            // Обновляем цены в истории бронирований
+            foreach (var booking in HistoryBookingsPanel.Children.OfType<Border>())
+            {
+                await UpdateBookingPrice(booking, currency);
+            }
+        }
+
+        // Вынесем логику обновления цены в отдельный метод
+        private async Task UpdateBookingPrice(Border booking, string currency)
+        {
+            var priceTextBlock = FindPriceTextBlock(booking);
+            if (priceTextBlock != null)
+            {
+                // Сохраняем оригинальную цену при первой конвертации
+                if (!_originalPrices.ContainsKey(priceTextBlock))
+                {
+                    string priceText = priceTextBlock.Text;
+                    decimal originalPrice = decimal.Parse(priceText.Split(' ')[1]);
+                    _originalPrices[priceTextBlock] = originalPrice;
+                }
+
+                decimal convertedPrice = await App.CurrencyService.ConvertPrice(_originalPrices[priceTextBlock], currency);
+                string currencySymbol;
+                switch (currency)
+                {
+                    case "USD":
+                        currencySymbol = "$";
+                        break;
+                    case "EUR":
+                        currencySymbol = "€";
+                        break;
+                    default:
+                        currencySymbol = "₽";
+                        break;
+                }
+                priceTextBlock.Text = $"Стоимость: {convertedPrice} {currencySymbol}";
+            }
+        }
+
+        private TextBlock FindPriceTextBlock(Border booking)
+        {
+            var grid = booking.Child as Grid;
+            var stackPanel = grid?.Children.OfType<StackPanel>().FirstOrDefault();
+            return stackPanel?.Children.OfType<TextBlock>()
+                .FirstOrDefault(t => t.Text.StartsWith("Стоимость:"));
         }
     }
 }

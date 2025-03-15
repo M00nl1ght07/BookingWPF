@@ -18,6 +18,8 @@ namespace BookingWPF
         private readonly double _hotelLon;
         private readonly string _hotelName;
         private readonly AttractionsService _attractionsService;
+        private Dictionary<string, List<Attraction>> _categorizedAttractions;
+        private List<Attraction> _allAttractions;
 
         public AttractionMapPage(double latitude, double longitude, string hotelName)
         {
@@ -26,10 +28,6 @@ namespace BookingWPF
             _hotelLon = longitude;
             _hotelName = hotelName;
             _attractionsService = new AttractionsService();
-
-            // Добавляем отладочный вывод
-            MessageBox.Show($"Координаты отеля: {latitude}, {longitude}");
-
             Loaded += AttractionMapPage_Loaded;
         }
 
@@ -37,56 +35,171 @@ namespace BookingWPF
         {
             try
             {
-                var attractions = await _attractionsService.GetNearbyAttractions(_hotelLat, _hotelLon);
+                _allAttractions = await _attractionsService.GetNearbyAttractions(_hotelLat, _hotelLon);
+                
+                // Группируем места по категориям
+                _categorizedAttractions = _allAttractions
+                    .GroupBy(a => GetMainCategory(a.Type))
+                    .ToDictionary(g => g.Key, g => g.ToList());
 
-                foreach (var attraction in attractions)
+                // Создаем элементы интерфейса для категорий
+                foreach (var category in _categorizedAttractions)
                 {
-                    var attractionPanel = new StackPanel 
-                    { 
-                        Margin = new Thickness(0, 0, 0, 10),
-                        Cursor = Cursors.Hand
-                    };
-
-                    var nameBlock = new TextBlock
+                    var expander = new Expander
                     {
-                        Text = attraction.Name,
-                        FontSize = 16,
-                        Foreground = Brushes.White,
-                        FontWeight = FontWeights.Bold
+                        Header = $"{category.Key} ({category.Value.Count})",
+                        Margin = new Thickness(0, 0, 0, 5),
+                        Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#2D2D2D")),
+                        Foreground = Brushes.White
                     };
 
-                    var infoBlock = new TextBlock
+                    var stackPanel = new StackPanel();
+                    foreach (var attraction in category.Value)
                     {
-                        Text = $"{attraction.Type} • {attraction.Distance:F0} м от отеля",
-                        Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#E0E0E0"))
-                    };
+                        var attractionPanel = CreateAttractionPanel(attraction);
+                        stackPanel.Children.Add(attractionPanel);
+                    }
 
-                    attractionPanel.Children.Add(nameBlock);
-                    attractionPanel.Children.Add(infoBlock);
+                    expander.Content = stackPanel;
+                    expander.Expanded += (s, args) => ShowCategoryOnMap(category.Key);
+                    expander.Collapsed += (s, args) => HideCategoryFromMap(category.Key);
 
-                    // Добавляем обработчик клика
-                    attractionPanel.MouseLeftButtonDown += async (s, args) =>
-                    {
-                        try
-                        {
-                            await MapView.CoreWebView2.ExecuteScriptAsync(
-                                $"focusAttraction('{attraction.Name.Replace("'", "\\'")}')");
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show($"Ошибка при фокусировке на достопримечательности: {ex.Message}");
-                        }
-                    };
-
-                    AttractionsPanel.Children.Add(attractionPanel);
+                    CategoriesPanel.Children.Add(expander);
                 }
 
-                await InitializeMap(attractions);
+                await InitializeMap(_allAttractions);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка при загрузке достопримечательностей: {ex.Message}",
-                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Ошибка при загрузке: {ex.Message}");
+            }
+        }
+
+        private StackPanel CreateAttractionPanel(Attraction attraction)
+        {
+            var panel = new StackPanel
+            {
+                Margin = new Thickness(5),
+                Cursor = Cursors.Hand
+            };
+
+            var nameBlock = new TextBlock
+            {
+                Text = attraction.Name,
+                FontSize = 14,
+                Foreground = Brushes.White,
+                TextWrapping = TextWrapping.Wrap
+            };
+
+            var infoBlock = new TextBlock
+            {
+                Text = $"{Math.Round(attraction.Distance)} м",
+                Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#B0B0B0")),
+                FontSize = 12
+            };
+
+            panel.Children.Add(nameBlock);
+            panel.Children.Add(infoBlock);
+
+            panel.MouseLeftButtonDown += async (s, e) =>
+            {
+                try
+                {
+                    await MapView.CoreWebView2.ExecuteScriptAsync(
+                        $"focusAttraction('{attraction.Name.Replace("'", "\\'")}')");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка при фокусировке: {ex.Message}");
+                }
+            };
+
+            return panel;
+        }
+
+        private string GetMainCategory(string type)
+        {
+            switch (type)
+            {
+                case "Ресторан":
+                case "Кафе":
+                case "Бар":
+                    return "Места питания";
+
+                case "Кинотеатр":
+                case "Театр":
+                case "Арт-центр":
+                case "Концертный зал":
+                    return "Развлечения";
+
+                case "Музей":
+                case "Памятник":
+                case "Мемориал":
+                case "Достопримечательность":
+                    return "Достопримечательности";
+
+                case "Торговый центр":
+                    return "Шоппинг";
+
+                case "Парк":
+                case "Сад":
+                    return "Парки и сады";
+
+                default:
+                    return "Другое";
+            }
+        }
+
+        private async void ShowCategoryOnMap(string category)
+        {
+            if (_categorizedAttractions.ContainsKey(category))
+            {
+                var attractions = _categorizedAttractions[category];
+                await MapView.CoreWebView2.ExecuteScriptAsync(
+                    $"showCategory('{category}', {JsonConvert.SerializeObject(attractions)})");
+            }
+        }
+
+        private async void HideCategoryFromMap(string category)
+        {
+            await MapView.CoreWebView2.ExecuteScriptAsync($"hideCategory('{category}')");
+        }
+
+        private async void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var searchText = SearchBox.Text.ToLower();
+            await FilterAttractions(searchText);
+        }
+
+        private async void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            var searchText = SearchBox.Text.ToLower();
+            await FilterAttractions(searchText);
+        }
+
+        private async Task FilterAttractions(string searchText)
+        {
+            foreach (Expander expander in CategoriesPanel.Children)
+            {
+                var stackPanel = expander.Content as StackPanel;
+                if (stackPanel != null)
+                {
+                    var category = expander.Header.ToString().Split('(')[0].Trim();
+                    var attractions = _categorizedAttractions[category];
+                    
+                    var filteredAttractions = attractions
+                        .Where(a => a.Name.ToLower().Contains(searchText) || 
+                                   a.Type.ToLower().Contains(searchText))
+                        .ToList();
+
+                    expander.Header = $"{category} ({filteredAttractions.Count})";
+                    stackPanel.Children.Clear();
+
+                    foreach (var attraction in filteredAttractions)
+                    {
+                        stackPanel.Children.Add(CreateAttractionPanel(attraction));
+                    }
+                }
             }
         }
 
@@ -107,12 +220,8 @@ namespace BookingWPF
                     return;
                 }
 
-                // Включаем отладку
-                MapView.CoreWebView2.OpenDevToolsWindow();
-
                 MapView.CoreWebView2.Navigate($"file:///{htmlPath}");
 
-                // Ждем загрузку карты
                 var pageLoadedTcs = new TaskCompletionSource<bool>();
                 EventHandler<CoreWebView2NavigationCompletedEventArgs> handler = null;
                 handler = (s, e) =>
@@ -124,34 +233,18 @@ namespace BookingWPF
                 await pageLoadedTcs.Task;
                 await Task.Delay(500);
 
-                // Отладочный вывод данных
-                var debugData = new
-                {
-                    hotel = new { lat = _hotelLat, lon = _hotelLon, name = _hotelName },
-                    attractions = attractions.Select(a => new
-                    {
-                        a.Name,
-                        a.Type,
-                        a.Latitude,
-                        a.Longitude,
-                        a.Distance
-                    }).ToList()
-                };
-
-                MessageBox.Show($"Данные для карты: {JsonConvert.SerializeObject(debugData, Formatting.Indented)}");
-
+                // Инициализируем карту только с отелем
                 var script = $@"initMap(
                     {_hotelLat.ToString(System.Globalization.CultureInfo.InvariantCulture)},
                     {_hotelLon.ToString(System.Globalization.CultureInfo.InvariantCulture)},
-                    '{_hotelName.Replace("'", "\\'")}',
-                    {JsonConvert.SerializeObject(attractions)}
+                    '{_hotelName.Replace("'", "\\'")}'
                 );";
 
                 await MapView.CoreWebView2.ExecuteScriptAsync(script);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка при инициализации карты: {ex.Message}\n\nStack: {ex.StackTrace}");
+                MessageBox.Show($"Ошибка при инициализации карты: {ex.Message}");
             }
         }
     }

@@ -4,22 +4,106 @@
       xmlns:wpf="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
       Title="Достопримечательности">
 
+    <Page.Resources>
+        <Style x:Key="ThinScrollBarStyle" TargetType="{x:Type ScrollBar}">
+            <Setter Property="Width" Value="8"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ScrollBar}">
+                        <Grid>
+                            <Rectangle Width="8" 
+                                     Fill="#1A1A1A"/>
+                            <Track x:Name="PART_Track">
+                                <Track.Thumb>
+                                    <Thumb>
+                                        <Thumb.Template>
+                                            <ControlTemplate>
+                                                <Rectangle Width="8" 
+                                                         Height="{TemplateBinding Height}"
+                                                         Fill="#0078D7"
+                                                         RadiusX="4"
+                                                         RadiusY="4"/>
+                                            </ControlTemplate>
+                                        </Thumb.Template>
+                                    </Thumb>
+                                </Track.Thumb>
+                            </Track>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="300"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- Список достопримечательностей -->
-        <ScrollViewer Grid.Column="0" 
-                     VerticalScrollBarVisibility="Auto">
-            <Border Background="#2D2D2D"
-                    Margin="10"
-                    Padding="20"
+        <!-- Панель с поиском и списком -->
+        <DockPanel Grid.Column="0" LastChildFill="True">
+            <!-- Поиск -->
+            <Border DockPanel.Dock="Top" 
+                    Background="#2D2D2D"
+                    Margin="10,10,10,0"
+                    Padding="10"
                     CornerRadius="10">
-                <StackPanel x:Name="AttractionsPanel"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="SearchBox" 
+                             Grid.Column="0"
+                             Margin="0,0,5,0"
+                             Padding="5"
+                             Background="#404040"
+                             Foreground="White"
+                             BorderThickness="0"
+                             TextChanged="SearchBox_TextChanged"/>
+                    <Button Grid.Column="1" 
+                            Content="🔍"
+                            Background="Transparent"
+                            Foreground="White"
+                            BorderThickness="0"
+                            Click="SearchButton_Click"/>
+                </Grid>
             </Border>
-        </ScrollViewer>
+
+            <!-- Список категорий -->
+            <ScrollViewer VerticalScrollBarVisibility="Auto"
+                         HorizontalScrollBarVisibility="Disabled">
+                <ScrollViewer.Style>
+                    <Style TargetType="{x:Type ScrollViewer}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ScrollViewer}">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <ScrollContentPresenter Grid.Column="0"/>
+                                        <ScrollBar x:Name="PART_VerticalScrollBar"
+                                                 Grid.Column="1"
+                                                 Value="{TemplateBinding VerticalOffset}"
+                                                 Maximum="{TemplateBinding ScrollableHeight}"
+                                                 ViewportSize="{TemplateBinding ViewportHeight}"
+                                                 Style="{StaticResource ThinScrollBarStyle}"
+                                                 Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"/>
+                                    </Grid>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ScrollViewer.Style>
+                <StackPanel x:Name="CategoriesPanel" Margin="10">
+                    <!-- Категории будут добавлены программно -->
+                </StackPanel>
+            </ScrollViewer>
+        </DockPanel>
 
         <!-- Карта -->
         <Border Grid.Column="1" 

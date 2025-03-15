@@ -3,7 +3,27 @@
   "WorkspaceRootPath": "C:\\Users\\igris\\source\\repos\\BookingWPF\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{136BD319-7506-44B2-AA01-64FBF3C78193}|BookingWPF.csproj|C:\\Users\\igris\\source\\repos\\BookingWPF\\map.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{136BD319-7506-44B2-AA01-64FBF3C78193}|BookingWPF.csproj|c:\\users\\igris\\source\\repos\\bookingwpf\\hotelspage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{136BD319-7506-44B2-AA01-64FBF3C78193}|BookingWPF.csproj|solutionrelative:hotelspage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{136BD319-7506-44B2-AA01-64FBF3C78193}|BookingWPF.csproj|c:\\users\\igris\\source\\repos\\bookingwpf\\homepage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{136BD319-7506-44B2-AA01-64FBF3C78193}|BookingWPF.csproj|solutionrelative:homepage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{136BD319-7506-44B2-AA01-64FBF3C78193}|BookingWPF.csproj|c:\\users\\igris\\source\\repos\\bookingwpf\\bookingspage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{136BD319-7506-44B2-AA01-64FBF3C78193}|BookingWPF.csproj|solutionrelative:bookingspage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{136BD319-7506-44B2-AA01-64FBF3C78193}|BookingWPF.csproj|c:\\users\\igris\\source\\repos\\bookingwpf\\bookingpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{136BD319-7506-44B2-AA01-64FBF3C78193}|BookingWPF.csproj|solutionrelative:bookingpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{136BD319-7506-44B2-AA01-64FBF3C78193}|BookingWPF.csproj|c:\\users\\igris\\source\\repos\\bookingwpf\\addhotelpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{136BD319-7506-44B2-AA01-64FBF3C78193}|BookingWPF.csproj|solutionrelative:addhotelpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{136BD319-7506-44B2-AA01-64FBF3C78193}|BookingWPF.csproj|c:\\users\\igris\\source\\repos\\bookingwpf\\map.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{136BD319-7506-44B2-AA01-64FBF3C78193}|BookingWPF.csproj|solutionrelative:map.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
@@ -11,8 +31,8 @@
       "RelativeMoniker": "D:0:0:{136BD319-7506-44B2-AA01-64FBF3C78193}|BookingWPF.csproj|solutionrelative:RoomSelectionPage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{136BD319-7506-44B2-AA01-64FBF3C78193}|BookingWPF.csproj|c:\\users\\igris\\source\\repos\\bookingwpf\\pages\\attractionmappage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{136BD319-7506-44B2-AA01-64FBF3C78193}|BookingWPF.csproj|solutionrelative:pages\\attractionmappage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{136BD319-7506-44B2-AA01-64FBF3C78193}|BookingWPF.csproj|C:\\Users\\igris\\source\\repos\\BookingWPF\\Pages\\AttractionMapPage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{136BD319-7506-44B2-AA01-64FBF3C78193}|BookingWPF.csproj|solutionrelative:Pages\\AttractionMapPage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{136BD319-7506-44B2-AA01-64FBF3C78193}|BookingWPF.csproj|C:\\Users\\igris\\source\\repos\\BookingWPF\\Services\\AttractionsService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -35,19 +55,79 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "HotelsPage.xaml",
+              "DocumentMoniker": "C:\\Users\\igris\\source\\repos\\BookingWPF\\HotelsPage.xaml",
+              "RelativeDocumentMoniker": "HotelsPage.xaml",
+              "ToolTip": "C:\\Users\\igris\\source\\repos\\BookingWPF\\HotelsPage.xaml",
+              "RelativeToolTip": "HotelsPage.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-03-15T18:58:19.5Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "HomePage.xaml",
+              "DocumentMoniker": "C:\\Users\\igris\\source\\repos\\BookingWPF\\HomePage.xaml",
+              "RelativeDocumentMoniker": "HomePage.xaml",
+              "ToolTip": "C:\\Users\\igris\\source\\repos\\BookingWPF\\HomePage.xaml",
+              "RelativeToolTip": "HomePage.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-03-15T18:58:18.488Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "BookingsPage.xaml",
+              "DocumentMoniker": "C:\\Users\\igris\\source\\repos\\BookingWPF\\BookingsPage.xaml",
+              "RelativeDocumentMoniker": "BookingsPage.xaml",
+              "ToolTip": "C:\\Users\\igris\\source\\repos\\BookingWPF\\BookingsPage.xaml",
+              "RelativeToolTip": "BookingsPage.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-03-15T18:58:14.437Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "BookingPage.xaml",
+              "DocumentMoniker": "C:\\Users\\igris\\source\\repos\\BookingWPF\\BookingPage.xaml",
+              "RelativeDocumentMoniker": "BookingPage.xaml",
+              "ToolTip": "C:\\Users\\igris\\source\\repos\\BookingWPF\\BookingPage.xaml",
+              "RelativeToolTip": "BookingPage.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-03-15T18:58:07.011Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AddHotelPage.xaml",
+              "DocumentMoniker": "C:\\Users\\igris\\source\\repos\\BookingWPF\\AddHotelPage.xaml",
+              "RelativeDocumentMoniker": "AddHotelPage.xaml",
+              "ToolTip": "C:\\Users\\igris\\source\\repos\\BookingWPF\\AddHotelPage.xaml",
+              "RelativeToolTip": "AddHotelPage.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-03-15T18:58:02.794Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "map.html",
               "DocumentMoniker": "C:\\Users\\igris\\source\\repos\\BookingWPF\\map.html",
               "RelativeDocumentMoniker": "map.html",
               "ToolTip": "C:\\Users\\igris\\source\\repos\\BookingWPF\\map.html",
               "RelativeToolTip": "map.html",
-              "ViewState": "AQIAAAwAAAAAAAAAAAAAACcAAAAlAAAA",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAAAD0AAAAlAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
               "WhenOpened": "2025-03-15T17:58:22.785Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 6,
               "Title": "RoomSelectionPage.xaml.cs",
               "DocumentMoniker": "C:\\Users\\igris\\source\\repos\\BookingWPF\\RoomSelectionPage.xaml.cs",
               "RelativeDocumentMoniker": "RoomSelectionPage.xaml.cs",
@@ -55,12 +135,11 @@
               "RelativeToolTip": "RoomSelectionPage.xaml.cs",
               "ViewState": "AQIAABYBAAAAAAAAAAAWwCkBAAA3AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-15T17:33:12.464Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-15T17:33:12.464Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 7,
               "Title": "AttractionMapPage.xaml.cs",
               "DocumentMoniker": "C:\\Users\\igris\\source\\repos\\BookingWPF\\Pages\\AttractionMapPage.xaml.cs",
               "RelativeDocumentMoniker": "Pages\\AttractionMapPage.xaml.cs",
@@ -68,12 +147,11 @@
               "RelativeToolTip": "Pages\\AttractionMapPage.xaml.cs",
               "ViewState": "AQIAABkAAAAAAAAAAADwvy4AAAAhAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-15T17:33:09.127Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-15T17:33:09.127Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 8,
               "Title": "AttractionsService.cs",
               "DocumentMoniker": "C:\\Users\\igris\\source\\repos\\BookingWPF\\Services\\AttractionsService.cs",
               "RelativeDocumentMoniker": "Services\\AttractionsService.cs",
@@ -85,7 +163,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 9,
               "Title": "Attraction.cs",
               "DocumentMoniker": "C:\\Users\\igris\\source\\repos\\BookingWPF\\Models\\Attraction.cs",
               "RelativeDocumentMoniker": "Models\\Attraction.cs",

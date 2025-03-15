@@ -74,6 +74,13 @@
                       FontSize="18"
                       Foreground="#E0E0E0"
                       Margin="0,5"/>
+            <Button Content="Посмотреть достопримечательности"
+                    Background="#007ACC"
+                    Foreground="White"
+                    Padding="20,10"
+                    Margin="0,10,0,0"
+                    BorderThickness="0"
+                    Click="ShowAttractions_Click"/>
         </StackPanel>
 
         <!-- Фильтры номеров -->

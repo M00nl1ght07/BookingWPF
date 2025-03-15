@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Карта</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        body { 
+            padding: 0; 
+            margin: 0; 
+        }
+        #map { 
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <script>
+        var map = L.map('map').setView([55.7806261, 37.6194895], 13);
+        var markers = {};
+        
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap'
+        }).addTo(map);
+
+        function initMap(lat, lon, hotelName, attractions) {
+            console.log('Инициализация карты:', { lat, lon, hotelName, attractions });
+
+            // Отель
+            var hotelIcon = L.icon({
+                iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34]
+            });
+
+            var hotelMarker = L.marker([lat, lon], { icon: hotelIcon })
+                .addTo(map)
+                .bindPopup('<b>' + hotelName + '</b><br>Ваш отель');
+
+            map.setView([lat, lon], 14);
+
+            // Достопримечательности
+            if (attractions && attractions.length > 0) {
+                console.log('Добавление достопримечательностей:', attractions);
+                
+                attractions.forEach(function(a) {
+                    console.log('Добавление маркера:', a);
+                    
+                    var marker = L.marker([a.Latitude, a.Longitude])  // Изменено с latitude на Latitude
+                        .addTo(map)
+                        .bindPopup('<b>' + a.Name + '</b><br>' + a.Type + '<br>Расстояние: ' + Math.round(a.Distance) + ' м');
+                    
+                    markers[a.Name] = marker;
+                });
+            } else {
+                console.log('Нет достопримечательностей для отображения');
+            }
+        }
+
+        function focusAttraction(name) {
+            console.log('Фокус на:', name);
+            var marker = markers[name];
+            if (marker) {
+                map.setView(marker.getLatLng(), 16);
+                marker.openPopup();
+            } else {
+                console.log('Маркер не найден для:', name);
+            }
+        }
+    </script>
+</body>
+</html> 

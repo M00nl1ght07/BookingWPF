@@ -9,7 +9,7 @@ namespace BookingWPF
             "Server=95.31.128.97,1433;" + //host
             "Database=HotelBookingDB;" + //db name
             "User Id=admin;" + //user
-            "Password=winServer=;" + //pw
+            "Password=winServer==;" + //pw
             "Encrypt=True;" + //shifr
             "TrustServerCertificate=True;"; //doveryat sertificaty
 

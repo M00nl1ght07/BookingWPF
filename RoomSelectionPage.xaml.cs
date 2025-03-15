@@ -283,5 +283,30 @@ namespace BookingWPF
 
             LoadRooms();
         }
+
+        private void ShowAttractions_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                SqlParameter[] parameters = { new SqlParameter("@HotelID", _hotelId) };
+                using (SqlDataReader reader = DatabaseConnection.ExecuteReader(
+                    "SELECT Name, Latitude, Longitude FROM Hotels WHERE HotelID = @HotelID", 
+                    parameters))
+                {
+                    if (reader.Read())
+                    {
+                        NavigationService.Navigate(new AttractionMapPage(
+                            reader.GetDouble(reader.GetOrdinal("Latitude")),
+                            reader.GetDouble(reader.GetOrdinal("Longitude")),
+                            reader.GetString(reader.GetOrdinal("Name"))
+                        ));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при загрузке карты: {ex.Message}");
+            }
+        }
     }
 }

@@ -23,6 +23,94 @@
             <Setter Property="Background" Value="#1E1E1E"/>
             <Setter Property="Foreground" Value="#FFFFFF"/>
         </Style>
+
+        <!-- Стиль для ComboBox -->
+        <Style TargetType="ComboBox">
+            <Setter Property="Background" Value="#2D2D2D"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <ToggleButton x:Name="ToggleButton"
+                                        Background="{TemplateBinding Background}"
+                                        BorderBrush="Transparent"
+                                        Foreground="{TemplateBinding Foreground}"
+                                        IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}">
+                                <ToggleButton.Template>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Border Background="{TemplateBinding Background}"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="0">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition/>
+                                                    <ColumnDefinition Width="20"/>
+                                                </Grid.ColumnDefinitions>
+                                                <ContentPresenter Grid.Column="0"
+                                                                Content="{TemplateBinding Content}"
+                                                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                                HorizontalAlignment="Left"
+                                                                Margin="10,0,0,0"
+                                                                VerticalAlignment="Center"/>
+                                                <Path Grid.Column="1"
+                                                      Data="M0,0 L5,5 L10,0"
+                                                      Fill="White"
+                                                      HorizontalAlignment="Center"
+                                                      VerticalAlignment="Center"
+                                                      Stretch="Uniform"
+                                                      Width="8"
+                                                      Height="5"/>
+                                            </Grid>
+                                        </Border>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+                            </ToggleButton>
+                            <Popup IsOpen="{TemplateBinding IsDropDownOpen}"
+                                   Placement="Bottom"
+                                   PopupAnimation="Slide"
+                                   AllowsTransparency="True">
+                                <Border Background="#2D2D2D"
+                                        BorderThickness="0"
+                                        Margin="0,1,0,0">
+                                    <ScrollViewer SnapsToDevicePixels="True">
+                                        <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Contained"/>
+                                    </ScrollViewer>
+                                </Border>
+                            </Popup>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Стиль для ComboBoxItem -->
+        <Style TargetType="ComboBoxItem">
+            <Setter Property="Background" Value="#2D2D2D"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Padding" Value="10,0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBoxItem">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderThickness="0">
+                            <ContentPresenter HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#3F3F3F"/>
+                </Trigger>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#007ACC"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
 
     <Grid>
@@ -39,7 +127,7 @@
         </Grid.RowDefinitions>
 
         <!-- Верхнее меню -->
-        <Menu Grid.Row="0">
+        <Menu Grid.Row="0" Background="#2D2D2D">
             <MenuItem Header="Главная" Click="MenuHome_Click">
                 <MenuItem.Icon>
                     <Path Data="M3,13H11V3H3M3,21H11V15H3M13,21H21V11H13M13,3V9H21V3" 
@@ -76,6 +164,21 @@
                           Height="16"/>
                 </MenuItem.Icon>
             </MenuItem>
+            <StackPanel Orientation="Horizontal" Margin="10,0">
+                <TextBlock Text="₽ € $"
+                           Foreground="White"
+                           VerticalAlignment="Center"
+                           Margin="0,0,5,0"/>
+                <ComboBox x:Name="CurrencyComboBox" 
+                          Width="60"
+                          Height="30"
+                          SelectedIndex="0"
+                          SelectionChanged="CurrencyComboBox_SelectionChanged">
+                    <ComboBoxItem Content="RUB"/>
+                    <ComboBoxItem Content="USD"/>
+                    <ComboBoxItem Content="EUR"/>
+                </ComboBox>
+            </StackPanel>
         </Menu>
 
         <!-- Основной контент -->

@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using BookingWPF.Services;
 
 namespace BookingWPF
 {
@@ -13,5 +14,7 @@ namespace BookingWPF
     /// </summary>
     public partial class App : Application
     {
+        public static CurrencyService CurrencyService { get; } = new CurrencyService();
+        public static string CurrentCurrency { get; set; } = "RUB";
     }
 }

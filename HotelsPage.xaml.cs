@@ -8,6 +8,8 @@ using System.IO;
 using System.Windows.Controls.Primitives;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using BookingWPF.Services;
 
 namespace BookingWPF
 {
@@ -18,6 +20,7 @@ namespace BookingWPF
         private decimal? maxPrice;
         private List<int> selectedRatings = new List<int>();
         private HotelSearchParameters searchParams;
+        private Dictionary<TextBlock, decimal> _originalPrices = new Dictionary<TextBlock, decimal>();
 
         public HotelsPage(HotelSearchParameters searchParams = null)
         {
@@ -25,6 +28,15 @@ namespace BookingWPF
             this.searchParams = searchParams;
             hotelsPanel = (WrapPanel)((ScrollViewer)((Grid)Content).Children[1]).Content;
             LoadHotels();
+            
+            // После загрузки отелей сразу конвертируем в текущую валюту, если она не рубли
+            if (App.CurrentCurrency != "RUB")
+            {
+                Dispatcher.BeginInvoke(new Action(async () =>
+                {
+                    await UpdatePrices(App.CurrentCurrency);
+                }));
+            }
         }
 
         private void LoadHotels()
@@ -110,13 +122,19 @@ namespace BookingWPF
                             Foreground = Brushes.LightGray
                         });
 
-                        infoPanel.Children.Add(new TextBlock
+                        decimal originalPrice = Convert.ToDecimal(reader["BasePrice"]);
+                        var priceTextBlock = new TextBlock
                         {
-                            Text = $"От {reader["BasePrice"]:C0} за ночь",
+                            Text = $"От {originalPrice} ₽ за ночь",
                             FontSize = 16,
-                            Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#00A0FF")),
-                            Margin = new Thickness(0, 10, 0, 0)
-                        });
+                            Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#007ACC")),
+                            Margin = new Thickness(0, 10, 0, 10)
+                        };
+
+                        // Сохраняем оригинальную цену сразу при создании
+                        _originalPrices[priceTextBlock] = originalPrice;
+
+                        infoPanel.Children.Add(priceTextBlock);
 
                         infoPanel.Children.Add(new TextBlock
                         {
@@ -184,6 +202,40 @@ namespace BookingWPF
         private void ApplyFilters_Click(object sender, RoutedEventArgs e)
         {
             UpdateFilters();
+        }
+
+        public async Task UpdatePrices(string currency)
+        {
+            foreach (var hotel in hotelsPanel.Children.OfType<Border>())
+            {
+                var priceTextBlock = FindPriceTextBlock(hotel);
+                if (priceTextBlock != null)
+                {
+                    decimal convertedPrice = await App.CurrencyService.ConvertPrice(_originalPrices[priceTextBlock], currency);
+                    string currencySymbol;
+                    switch (currency)
+                    {
+                        case "USD":
+                            currencySymbol = "$";
+                            break;
+                        case "EUR":
+                            currencySymbol = "€";
+                            break;
+                        default:
+                            currencySymbol = "₽";
+                            break;
+                    }
+                    priceTextBlock.Text = $"От {convertedPrice} {currencySymbol} за ночь";
+                }
+            }
+        }
+
+        private TextBlock FindPriceTextBlock(Border hotel)
+        {
+            var grid = hotel.Child as Grid;
+            var stackPanel = grid?.Children.OfType<StackPanel>().FirstOrDefault();
+            return stackPanel?.Children.OfType<TextBlock>()
+                .FirstOrDefault(t => t.Text.StartsWith("От"));
         }
     }
 }

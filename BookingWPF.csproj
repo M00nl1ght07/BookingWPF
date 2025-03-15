@@ -99,6 +99,7 @@
       <DependentUpon>RoomSelectionPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\AttractionsService.cs" />
+    <Compile Include="Services\CurrencyService.cs" />
     <Compile Include="User.cs" />
     <Page Include="AddHotelPage.xaml">
       <SubType>Designer</SubType>

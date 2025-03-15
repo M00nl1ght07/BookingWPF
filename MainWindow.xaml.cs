@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Threading.Tasks;
+using BookingWPF.Services;
 
 namespace BookingWPF
 {
@@ -8,9 +10,22 @@ namespace BookingWPF
     {
         public User CurrentUser { get; private set; }
 
+        private readonly CurrencyService _currencyService = new CurrencyService();
+        private string _currentCurrency = "RUB";
+
         public MainWindow()
         {
             InitializeComponent();
+            
+            // Устанавливаем сохраненную валюту в ComboBox
+            foreach (ComboBoxItem item in CurrencyComboBox.Items)
+            {
+                if (item.Content.ToString() == App.CurrentCurrency)
+                {
+                    CurrencyComboBox.SelectedItem = item;
+                    break;
+                }
+            }
 
             if (!DatabaseConnection.TestConnection())
             {
@@ -66,6 +81,35 @@ namespace BookingWPF
         {
             CurrentUser = null;
             MainFrame.Navigate(new HomePage());
+        }
+
+        private async void CurrencyComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (CurrencyComboBox.SelectedItem is ComboBoxItem selectedItem && MainFrame?.Content != null)
+            {
+                App.CurrentCurrency = selectedItem.Content.ToString(); // Сохраняем выбранную валюту
+                await UpdatePrices();
+            }
+        }
+
+        private async Task UpdatePrices()
+        {
+            if (MainFrame.Content is HomePage homePage)
+            {
+                await homePage.UpdatePrices(App.CurrentCurrency);
+            }
+            else if (MainFrame.Content is HotelsPage hotelsPage)
+            {
+                await hotelsPage.UpdatePrices(App.CurrentCurrency);
+            }
+            else if (MainFrame.Content is RoomSelectionPage roomPage)
+            {
+                await roomPage.UpdatePrices(App.CurrentCurrency);
+            }
+            else if (MainFrame.Content is BookingsPage bookingsPage)
+            {
+                await bookingsPage.UpdatePrices(App.CurrentCurrency);
+            }
         }
     }
 }

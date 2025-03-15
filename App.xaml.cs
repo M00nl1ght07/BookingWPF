@@ -15,6 +15,7 @@ namespace BookingWPF
     public partial class App : Application
     {
         public static CurrencyService CurrencyService { get; } = new CurrencyService();
+        public static WeatherService WeatherService { get; } = new WeatherService();
         public static string CurrentCurrency { get; set; } = "RUB";
     }
 }

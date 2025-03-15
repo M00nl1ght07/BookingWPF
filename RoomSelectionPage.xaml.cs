@@ -35,7 +35,7 @@ namespace BookingWPF
             }
         }
 
-        private void LoadHotelInfo()
+        private async void LoadHotelInfo()
         {
             try
             {
@@ -45,8 +45,22 @@ namespace BookingWPF
                 {
                     if (reader.Read())
                     {
-                        HotelNameText.Text = reader["Name"].ToString();
-                        HotelCityText.Text = reader["City"].ToString();
+                        string hotelName = reader["Name"].ToString();
+                        string city = reader["City"].ToString();
+                        
+                        HotelNameText.Text = hotelName;
+                        HotelCityText.Text = city;
+
+                        // Загружаем погоду
+                        try
+                        {
+                            var (temperature, description) = await App.WeatherService.GetWeather(city);
+                            WeatherText.Text = $"Погода: {temperature:F1}°C, {description}";
+                        }
+                        catch
+                        {
+                            WeatherText.Text = "Информация о погоде недоступна";
+                        }
                     }
                 }
             }

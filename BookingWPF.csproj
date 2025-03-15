@@ -100,6 +100,7 @@
     </Compile>
     <Compile Include="Services\AttractionsService.cs" />
     <Compile Include="Services\CurrencyService.cs" />
+    <Compile Include="Services\WeatherService.cs" />
     <Compile Include="User.cs" />
     <Page Include="AddHotelPage.xaml">
       <SubType>Designer</SubType>

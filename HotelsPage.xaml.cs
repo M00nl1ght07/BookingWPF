@@ -87,7 +87,7 @@ namespace BookingWPF
                         Border hotelCard = new Border
                         {
                             Width = 300,
-                            Height = 400,
+                            Height = 450,
                             Margin = new Thickness(0, 0, 20, 20),
                             Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#2D2D2D")),
                             CornerRadius = new CornerRadius(10)
@@ -142,7 +142,7 @@ namespace BookingWPF
                             FontSize = 14,
                             Foreground = Brushes.LightGray,
                             TextWrapping = TextWrapping.Wrap,
-                            Margin = new Thickness(0, 0, 0, 10),
+                            Margin = new Thickness(0, 0, 0, 15),
                             MaxHeight = 60,
                             TextTrimming = TextTrimming.CharacterEllipsis
                         });
@@ -153,7 +153,8 @@ namespace BookingWPF
                             Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#007ACC")),
                             Foreground = Brushes.White,
                             Padding = new Thickness(20, 5, 20, 5),
-                            Margin = new Thickness(0, 0, 0, 10),
+                            Height = 35,
+                            Margin = new Thickness(0, 5, 0, 0),
                             BorderThickness = default(Thickness)
                         };
 

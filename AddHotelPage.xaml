@@ -102,6 +102,44 @@
                              BorderThickness="0"
                              Margin="0,0,0,15"/>
 
+                    <!-- Координаты -->
+                    <TextBlock Text="Координаты"
+                              Foreground="White"
+                              Margin="0,0,0,5"/>
+                    <Grid Margin="0,0,0,15">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text="Широта"
+                                      Foreground="White"
+                                      Margin="0,0,0,5"/>
+                            <TextBox x:Name="LatitudeTextBox"
+                                     PreviewTextInput="CoordinateTextBox_PreviewTextInput"
+                                     Background="#1E1E1E"
+                                     Foreground="White"
+                                     Height="40"
+                                     Padding="10,0"
+                                     VerticalContentAlignment="Center"
+                                     BorderThickness="0"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="2">
+                            <TextBlock Text="Долгота"
+                                      Foreground="White"
+                                      Margin="0,0,0,5"/>
+                            <TextBox x:Name="LongitudeTextBox"
+                                     PreviewTextInput="CoordinateTextBox_PreviewTextInput"
+                                     Background="#1E1E1E"
+                                     Foreground="White"
+                                     Height="40"
+                                     Padding="10,0"
+                                     VerticalContentAlignment="Center"
+                                     BorderThickness="0"/>
+                        </StackPanel>
+                    </Grid>
+
                     <!-- Рейтинг -->
                     <TextBlock Text="Рейтинг (1-5)"
                               Foreground="White"

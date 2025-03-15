@@ -1,6 +1,7 @@
 C:\Users\igris\source\repos\BookingWPF\bin\Debug\runtimes\win-x86\native\WebView2Loader.dll
 C:\Users\igris\source\repos\BookingWPF\bin\Debug\runtimes\win-x64\native\WebView2Loader.dll
 C:\Users\igris\source\repos\BookingWPF\bin\Debug\runtimes\win-arm64\native\WebView2Loader.dll
+C:\Users\igris\source\repos\BookingWPF\bin\Debug\map.html
 C:\Users\igris\source\repos\BookingWPF\bin\Debug\BookingWPF.exe.config
 C:\Users\igris\source\repos\BookingWPF\bin\Debug\BookingWPF.exe
 C:\Users\igris\source\repos\BookingWPF\bin\Debug\BookingWPF.pdb
@@ -55,4 +56,3 @@ C:\Users\igris\source\repos\BookingWPF\obj\Debug\BookingWPF.csproj.CoreCompileIn
 C:\Users\igris\source\repos\BookingWPF\obj\Debug\BookingWPF.csproj.Up2Date
 C:\Users\igris\source\repos\BookingWPF\obj\Debug\BookingWPF.exe
 C:\Users\igris\source\repos\BookingWPF\obj\Debug\BookingWPF.pdb
-C:\Users\igris\source\repos\BookingWPF\bin\Debug\map.html

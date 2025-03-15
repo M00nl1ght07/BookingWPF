@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using Newtonsoft.Json.Linq;
 using System.Windows;
+using System.Linq;
 
 namespace BookingWPF.Services
 {
@@ -12,21 +13,35 @@ namespace BookingWPF.Services
     {
         private static readonly HttpClient client = new HttpClient();
 
-        public async Task<List<Attraction>> GetNearbyAttractions(double latitude, double longitude, double radius = 1000)
+        public async Task<List<Attraction>> GetNearbyAttractions(double latitude, double longitude, double radius = 1500)
         {
             var attractions = new List<Attraction>();
             
             try
             {
-                // Форматируем координаты с точкой
                 var latStr = latitude.ToString(System.Globalization.CultureInfo.InvariantCulture);
                 var lonStr = longitude.ToString(System.Globalization.CultureInfo.InvariantCulture);
 
                 string query = $@"[out:json];
                     (
+                        // Достопримечательности
                         node['tourism'](around:{radius},{latStr},{lonStr});
                         node['historic'](around:{radius},{latStr},{lonStr});
                         node['leisure'='park'](around:{radius},{latStr},{lonStr});
+                        
+                        // Развлечения и культура
+                        node['amenity'='cinema'](around:{radius},{latStr},{lonStr});
+                        node['amenity'='theatre'](around:{radius},{latStr},{lonStr});
+                        node['amenity'='arts_centre'](around:{radius},{latStr},{lonStr});
+                        node['amenity'='concert_hall'](around:{radius},{latStr},{lonStr});
+                        
+                        // Еда и напитки
+                        node['amenity'='restaurant'](around:{radius},{latStr},{lonStr});
+                        node['amenity'='cafe'](around:{radius},{latStr},{lonStr});
+                        node['amenity'='bar'](around:{radius},{latStr},{lonStr});
+                        
+                        // Торговые центры
+                        node['shop'='mall'](around:{radius},{latStr},{lonStr});
                     );
                     out body;";
 
@@ -47,10 +62,6 @@ namespace BookingWPF.Services
                 }
 
                 var jsonResponse = await response.Content.ReadAsStringAsync();
-                
-                // Добавляем отладочный вывод
-                MessageBox.Show($"Ответ API: {jsonResponse}");
-                
                 var json = JObject.Parse(jsonResponse);
 
                 foreach (var element in json["elements"])
@@ -73,11 +84,11 @@ namespace BookingWPF.Services
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка при получении достопримечательностей: {ex.Message}");
-                return new List<Attraction>(); // Возвращаем пустой список вместо исключения
+                MessageBox.Show($"Ошибка при получении мест: {ex.Message}");
+                return new List<Attraction>();
             }
 
-            return attractions;
+            return attractions.OrderBy(a => a.Distance).ToList();
         }
 
         private async Task<List<Attraction>> GetAttractionsViaNominatim(double latitude, double longitude, double radius)
@@ -136,31 +147,58 @@ namespace BookingWPF.Services
 
         private string GetAttractionType(JToken tags)
         {
-            var type = tags["tourism"]?.ToString() ??
-                       tags["historic"]?.ToString() ??
-                       tags["leisure"]?.ToString();
-
-            if (type == null) return "Достопримечательность";
-
-            switch (type)
+            // Определяем тип места
+            if (tags["amenity"] != null)
             {
-                case "museum":
-                    return "Музей";
-                case "monument":
-                    return "Памятник";
-                case "castle":
-                    return "Замок";
-                case "church":
-                    return "Церковь";
-                case "park":
-                    return "Парк";
-                case "gallery":
-                    return "Галерея";
-                case "theatre":
-                    return "Театр";
-                default:
-                    return "Достопримечательность";
+                switch (tags["amenity"].ToString())
+                {
+                    case "restaurant": return "Ресторан";
+                    case "cafe": return "Кафе";
+                    case "bar": return "Бар";
+                    case "cinema": return "Кинотеатр";
+                    case "theatre": return "Театр";
+                    case "arts_centre": return "Арт-центр";
+                    case "concert_hall": return "Концертный зал";
+                }
             }
+
+            if (tags["shop"] != null && tags["shop"].ToString() == "mall")
+                return "Торговый центр";
+
+            if (tags["tourism"] != null)
+            {
+                switch (tags["tourism"].ToString())
+                {
+                    case "museum": return "Музей";
+                    case "gallery": return "Галерея";
+                    case "hotel": return "Отель";
+                    case "attraction": return "Достопримечательность";
+                    case "viewpoint": return "Смотровая площадка";
+                }
+            }
+
+            if (tags["historic"] != null)
+            {
+                switch (tags["historic"].ToString())
+                {
+                    case "monument": return "Памятник";
+                    case "memorial": return "Мемориал";
+                    case "castle": return "Замок";
+                    case "ruins": return "Руины";
+                    case "archaeological_site": return "Археологический объект";
+                }
+            }
+
+            if (tags["leisure"] != null)
+            {
+                switch (tags["leisure"].ToString())
+                {
+                    case "park": return "Парк";
+                    case "garden": return "Сад";
+                }
+            }
+
+            return "Достопримечательность";
         }
 
         private double CalculateDistance(double lat1, double lon1, double lat2, double lon2)
